@@ -1,12 +1,13 @@
 const RBNode = require('./src/rbtree.js');
-const inquirer = require('inquirer');
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout,
-    prompt: '>',
+    prompt: '> ',
 });
 const chalk = require('chalk');
-const { read } = require('fs');
+const clear = require('clear');
+
+clear();
 
 let root;
 const log = console.log;
