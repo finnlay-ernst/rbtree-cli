@@ -6,9 +6,21 @@ Languages: JavaScript
 
 - [x]  Chose testing framework (Jest vs Mocha, etc)
 - [x]  Find a good page documenting rules
-- [ ]  Setup project structure and Git
+- [x]  Setup project structure and Git
 - [ ]  Determine what functions to support (find, size, flatten, etc)
 - [ ]  Implement function stubs & tests
+    - [] Insert works
+    - [] Delete works
+    - [] Find works
+    - [] Duplicate insertion
+    - [] Deletion of a non-existant element
+    - [] Test functions on null root
+    - [] Left rotation works
+    - [] Right rotation works
+    - [] Approriate colour adjustments after rotation
+    - [] Check properties (black root, black leaves, red node = black parent, all paths to leaves contain same black node count, max height 2log2(n+1))
+    - [] Insert maintains red black tree properties 
+    - [] Delete maintains red black tree properties
 - [ ]  Implement functions
 
 ## Testing

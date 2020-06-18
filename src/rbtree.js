@@ -18,8 +18,7 @@ module.exports = class RBNode {
     }
 
     /*
-        @param Value to be inserted
-        @return true if object succesfully inserted else false (e.g. if object already in tree)
+        @param Value to be inserted    
     */
     insert(val) {
         //TODO: implement insertion
@@ -28,7 +27,6 @@ module.exports = class RBNode {
 
     /*
         @param Value to be deleted 
-        @return true if object succesfully removed else false (e.g. if object not in tree)
     */
     delete(val) {
         //TODO: implement deletion
