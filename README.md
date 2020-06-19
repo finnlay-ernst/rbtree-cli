@@ -22,6 +22,13 @@ Languages: JavaScript
     - [ ] Insert maintains red black tree properties 
     - [ ] Delete maintains red black tree properties
 - [ ]  Implement functions
+    - [ ] Insert
+    - [ ] Delete
+    - [ ] Find
+    - [ ] Size
+    - [ ] Depth
+    - [ ] Flatten
+    - [ ] Collapse
 
 ## Testing
 

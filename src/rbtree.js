@@ -72,4 +72,12 @@ module.exports = class RBNode {
         return [];
     }
 
+    leftRotate(){
+        //TODO: implement leftRotate
+    }
+
+    rightRotate(){
+        //TODO: implement rightRotate
+    }
+
 }
