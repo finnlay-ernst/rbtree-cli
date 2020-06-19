@@ -7,20 +7,20 @@ Languages: JavaScript
 - [x]  Chose testing framework (Jest vs Mocha, etc)
 - [x]  Find a good page documenting rules
 - [x]  Setup project structure and Git
-- [ ]  Determine what functions to support (find, size, flatten, etc)
+- [x]  Determine what functions to support (find, size, flatten, etc)
 - [ ]  Implement function stubs & tests
-    - [] Insert works
-    - [] Delete works
-    - [] Find works
-    - [] Duplicate insertion
-    - [] Deletion of a non-existant element
-    - [] Test functions on null root
-    - [] Left rotation works
-    - [] Right rotation works
-    - [] Approriate colour adjustments after rotation
-    - [] Check properties (black root, black leaves, red node = black parent, all paths to leaves contain same black node count, max height 2log2(n+1))
-    - [] Insert maintains red black tree properties 
-    - [] Delete maintains red black tree properties
+    - [ ] Insert works
+    - [ ] Delete works
+    - [ ] Find works
+    - [ ] Duplicate insertion
+    - [ ] Deletion of a non-existant element
+    - [ ] Test functions on null root
+    - [ ] Left rotation works
+    - [ ] Right rotation works
+    - [ ] Approriate colour adjustments after rotation
+    - [ ] Check properties (black root, black leaves, red node = black parent, all paths to leaves contain same black node count, max height 2log2(n+1))
+    - [ ] Insert maintains red black tree properties 
+    - [ ] Delete maintains red black tree properties
 - [ ]  Implement functions
 
 ## Testing
@@ -32,3 +32,10 @@ We are going with Jest here as it is a more wholistic testing suite. Mocha is al
 [Red-Black Tree | Brilliant Math & Science Wiki](https://brilliant.org/wiki/red-black-tree/)
 
 ## Supported Functionality
+- Insert
+- Delete
+- Find
+- Size (how many nodes?)
+- Depth (how many levels?)
+- Flatten (left to right)
+- Collapse (root first)

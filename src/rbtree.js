@@ -21,8 +21,7 @@ module.exports = class RBNode {
         @param Value to be inserted    
     */
     insert(val) {
-        //TODO: implement insertion
-        return false;
+        //TODO: implement insertion        
     }
 
     /*
@@ -30,7 +29,6 @@ module.exports = class RBNode {
     */
     delete(val) {
         //TODO: implement deletion
-        return false;
     }
 
     /*
@@ -38,7 +36,40 @@ module.exports = class RBNode {
         @return The object representing that node or null if not found
     */
     find(val) {
+        //TODO: implement find
         return null;
+    }
+
+    /* 
+        @return Total number of nodes in the tree (all subnodes of this node)
+    */
+    size(){
+        //TODO: implement size
+        return 1;
+    }
+
+    /*
+        @return The number of levels in the tree
+    */
+    depth(){
+        //TODO: implement depth
+        return 0;
+    }
+
+    /*        
+        @return An array of all values in the tree left to right
+    */
+    flatten(){
+        //TODO: implement flatten
+        return [];
+    }
+
+    /*        
+        @return An array of all nodes in the tree starting from center (so that reinserting would not require rotation, good for serilization)
+    */
+    collapse(){
+        //TODO: implement collapse
+        return [];
     }
 
 }
