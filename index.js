@@ -16,7 +16,7 @@ log (`Use ${chalk.blueBright('insert _')} or ${chalk.blueBright('delete _')} to 
 readline.prompt(); 
 try {
     readline.on ('line', (input) => {
-        let inputs = input.toLowerCase().split(" ");
+        const inputs = input.toLowerCase().split(" ");
         if (inputs.length !== 2){
             log('Error: Invalid input');
         }
