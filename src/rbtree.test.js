@@ -1,4 +1,4 @@
-let { RBNode, RBTree } = require('./rbtree.js');
+let { RBNode, RBTree } = require("./rbtree.js");
 
 test("Example test", () => {
 	expect(1 + 2).toBe(3);
@@ -8,8 +8,8 @@ let testTree;
 
 beforeEach(() => {
 	//Before every test instatiate tree to this
-    testTree = new RBTree();
-    testTree.insert(50);
+	testTree = new RBTree();
+	testTree.insert(50);
 });
 
 describe("General input processing and exception handling tests:", () => {
@@ -57,12 +57,12 @@ describe("Insert tests:", () => {
 			expect(testTree.size()).toEqual(preDupSize);
 		});
 		test("Elements < root go in left subtree", () => {
-			expect(testTree.left).not.toBeNull();
-			expect(testTree.left.value).toEqual(25);
+			expect(testTree.root.left).not.toBeNull();
+			expect(testTree.root.left.value).toEqual(25);
 		});
 		test("Elements > root go in right subtree", () => {
-			expect(testTree.right).not.toBeNull();
-			expect(testTree.right.value).toEqual(75);
+			expect(testTree.root.right).not.toBeNull();
+			expect(testTree.root.right.value).toEqual(75);
 		});
 	});
 	describe("Red black tree properites:", () => {
@@ -101,8 +101,8 @@ describe("Delete tests:", () => {
 		test("Deleting element does not leave subtrees detatched", () => {
 			testTree.insert(100);
 			testTree.delete(75);
-			expect(testTree.right).not.toBeNull();
-			expect(testTree.right.value).toEqual(100);
+			expect(testTree.root.right).not.toBeNull();
+			expect(testTree.root.right.value).toEqual(100);
 		});
 	});
 	describe("Red black tree properites:", () => {

@@ -94,7 +94,7 @@ class RBTree {
 	}
 
 	insert(val) {
-        if (this.root === null) this.root = new RBNode(val);
+		if (this.root === null) this.root = new RBNode(val);
 		else this.root.insert(val);
 		//TODO: implement insertion
 	}
@@ -103,8 +103,8 @@ class RBTree {
         @param Value to be deleted 
     */
 	delete(val) {
-        if (this.root !== null) this.root.delete(val);
-        //TODO: implement deletion
+		if (this.root !== null) this.root.delete(val);
+		//TODO: implement deletion
 	}
 
 	/*
@@ -113,35 +113,35 @@ class RBTree {
     */
 	find(val) {
 		//TODO: ensure val is valid input
-		return (this.root !== null) ? this.root.find(val) : null;
+		return this.root !== null ? this.root.find(val) : null;
 	}
 
 	/* 
 		@return Total number of nodes in the tree 
 	*/
 	size() {
-		return (this.root !== null) ? this.root.size() : 0;
+		return this.root !== null ? this.root.size() : 0;
 	}
 
 	/*
 		@return The number of levels in the tree
 	*/
 	depth() {
-		return (this.root !== null) ? this.root.depth() : 0;
+		return this.root !== null ? this.root.depth() : 0;
 	}
 
 	/*        
 		@return An array of all values in the tree left to right
 	*/
 	flatten() {
-		return (this.root !== null) ? this.root.flatten() : [];
+		return this.root !== null ? this.root.flatten() : [];
 	}
 
 	/*        
 		@return An array of all nodes in the tree starting from root (so that reinserting would not require rotation, good for serilization)
 	*/
 	collapse() {
-		return (this.root !== null) ? this.root.collapse() : [];
+		return this.root !== null ? this.root.collapse() : [];
 	}
 }
 
