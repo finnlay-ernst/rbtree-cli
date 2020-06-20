@@ -6,7 +6,11 @@ const colours = {
 
 //We don't ever want to change this object
 Object.freeze(colours);
-module.exports = class RBNode {
+
+/*
+    Class represening the nodes the tree will be made up of.
+*/
+class RBNode {
 	//Default attributes
 	colour = colours.Black;
 	parent = null;
@@ -79,3 +83,38 @@ module.exports = class RBNode {
 		//TODO: implement rightRotate
 	}
 }
+
+/*
+    Need a seperate class for tree as the root will often need to change to maintain red black properties.
+    Input validation will also be performed in this class.
+*/
+class RBTree {
+	constructor() {
+		this.root = null;
+	}
+
+	insert(val) {
+        if (this.root === null) this.root = new RBNode(val);
+		else this.root.insert(val);
+		//TODO: implement insertion
+	}
+
+	/*
+        @param Value to be deleted 
+    */
+	delete(val) {
+        if (this.root !== null) this.root.delete(val);
+        //TODO: implement deletion
+	}
+
+	/*
+        @param Value to be found 
+        @return The object representing that node or null if not found
+    */
+	find(val) {
+		//TODO: implement find
+		return this.root.find(val);
+	}
+}
+
+module.exports = { RBNode, RBTree };

@@ -1,14 +1,15 @@
-const RBNode = require("./rbtree.js");
+let { RBNode, RBTree } = require('./rbtree.js');
 
 test("Example test", () => {
 	expect(1 + 2).toBe(3);
 });
 
-let testTree = null;
+let testTree;
 
 beforeEach(() => {
 	//Before every test instatiate tree to this
-	testTree = new RBNode(50);
+    testTree = new RBTree();
+    testTree.insert(50);
 });
 
 describe("General input processing and exception handling tests:", () => {
