@@ -22,6 +22,7 @@ test ('Example test', () => {
 // const randRoot = getRandomInt(50, 100);
 // const randomTree = new RBNode(randRoot);
 
+const manualTree = new RBNode(50);
 
 describe('General input processing and exception handling tests:', () => {
     test('Non-integer inputs throw error', () => {
@@ -44,7 +45,6 @@ describe('General input processing and exception handling tests:', () => {
 });
 
 describe('Insert tests:', () => {
-    const manualTree = new RBNode(50);
     describe('Binary tree properites:', () => {
         const prevSize = manualTree.size(); 
         manualTree.insert(25);        
@@ -75,47 +75,71 @@ describe('Insert tests:', () => {
         });   
     });
     describe('Red black tree properites:', () => {
-    
+        //TODO
     });    
 });
 
 describe('Delete tests:', () => {
-    //TODO: complete test list
     describe('Binary tree properites:', () => {
         test('Existing element is deleted', () => {
-            //TODO
-            expect(true).toBe(true);
+            const preDelSize = manualTree.size();
+            let find25 = manualTree.find(25);
+            
+            expect(find25).not.toBeNull();
+            manualTree.delete(25);
+            
+            const postDelSize = manualTree.size();
+            find25 = manualTree.find(25);
+
+            expect(find25).toBeNull();
+            expect(postDelSize).toEqual(preDelSize-1);
         });
         test('Deleting only element throws error', () => {
-            //TODO
-            expect(true).toBe(true);
+            const singleNodeTree = new RBNode(100);        
+            expect(() => {singleNodeTree.delete(10)}).toThrow();
         });
         test('Deleting non-existant element hasd no effect', () => {
-            //TODO
-            expect(true).toBe(true);
+            const preDelManTree = manualTree;
+            manualTree.delete(10000);
+            //toEqual checks all the properties are the same while toBe checks that objects ARE the same
+            expect(manualTree).toEqual(preDelManTree); 
         });
         test('Deleting element does not leave subtrees detatched', () => {
-            //TODO
-            expect(true).toBe(true);
+            //Insert 2 elements because rb tree will rotate when imbalanced
+            manualTree.insert(100);
+            manualTree.insert(125);
+            manualTree.delete(100);            
+            expect(manualTree.right).not.toBeNull();
+            expect(manualTree.right.value).toEqual(125);
         });        
     });
     describe('Red black tree properites:', () => {
-    
+        //TODO
     });    
 });
 
 describe('Size tests:', () => { 
+    const multiNodeTree = new RBNode(50);
+    multiNodeTree.insert(25);
+    multiNodeTree.insert(75);
+    multiNodeTree.insert(125);
     test('Size of single node tree is 1', () => {
-        //TODO
-        expect(true).toBe(true);
+        const singleNodeTree = new RBNode(100);
+        const size = singleNodeTree.size();
+        expect(size).toEqual(1);
     });
     test('Adding nodes increases size appropriately', () => {
-        //TODO
-        expect(true).toBe(true);
+        const size = multiNodeTree.size();
+        expect(size).toEqual(4);
     });
     test('Removing nodes decreases size appropriately', () => {
-        //TODO
-        expect(true).toBe(true);
+        multiNodeTree.delete(75);
+        let size = multiNodeTree.size();
+        expect(size).toBe(3);
+        
+        multiNodeTree.delete(25);
+        size = multiNodeTree.size();
+        expect(size).toBe(2);
     });
 });
 
