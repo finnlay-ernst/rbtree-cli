@@ -161,4 +161,4 @@ class RBTree {
 	}
 }
 
-module.exports = { RBNode, RBTree };
+module.exports = { RBNode, RBTree, colours };

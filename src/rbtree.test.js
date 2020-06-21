@@ -1,4 +1,4 @@
-let { RBTree } = require("./rbtree.js");
+let { RBTree, colours } = require("./rbtree.js");
 
 let testTree;
 
@@ -33,12 +33,12 @@ describe("General input processing and exception handling tests:", () => {
 });
 
 describe("Insert tests:", () => {
+	beforeEach(() => {
+		//Setup for tests in this describe block
+		testTree.insert(25);
+		testTree.insert(75);
+	});
 	describe("Binary tree properites:", () => {
-		beforeEach(() => {
-			//Setup for tests in this describe block
-			testTree.insert(25);
-			testTree.insert(75);
-		});
 		test("Insertion on an empty tree", () => {
 			const blankTree = new RBTree();
 			expect(blankTree.root).toBeNull();
@@ -67,7 +67,29 @@ describe("Insert tests:", () => {
 		});
 	});
 	describe("Red black tree properites:", () => {
-		//TODO
+		test("root is always black", () => {
+			expect(testTree.root.colour).toBe(colours.Red);
+			testTree.insert(100);
+			expect(testTree.root.colour).toBe(colours.Red);
+			testTree.insert(35);
+			expect(testTree.root.colour).toBe(colours.Red);
+			testTree.insert(15);
+			expect(testTree.root.colour).toBe(colours.Red);
+			testTree.insert(10);
+			expect(testTree.root.colour).toBe(colours.Red);
+		});
+		test("Case 1 is handled (parent & uncle are red)", () => {
+			//colours should swap
+		});
+		test("Case 2 is handled (parent is red, uncle is black, inserted node's value is > parent's value)", () => {
+			//should result in left rotation -> right rotation
+		});
+		test("Case 3 is handled (parent is red, uncle is black, inserted node's value is < parent's value)", () => {
+			//should result in right rotation
+		});
+		test("Case 1 is checked up the tree", () => {
+			//should result in right rotation
+		});
 	});
 });
 
@@ -107,11 +129,35 @@ describe("Delete tests:", () => {
 		});
 	});
 	describe("Red black tree properites:", () => {
-		//TODO
+		beforeEach(() => {			
+			testTree.insert(100);		
+			testTree.insert(35);			
+			testTree.insert(15);			
+			testTree.insert(10);			
+		});
+		test("root is always black", () => {
+
+		});
+		test("Case 1 is handled (parent & uncle are red)", () => {
+
+		});
+		test("Case 2 is handled (parent is red, uncle is black, inserted node's value is > parent's value)", () => {
+		
+		});
+		test("Case 3 is handled (parent is red, uncle is black, inserted node's value is < parent's value)", () => {
+			
+		});
+		test("Case 1 is checked up the tree", () => {
+			
+		});
 	});
 });
 
 describe("Size tests:", () => {
+	test("Size of single node tree is 0", () => {
+		const emptyTree = new RBTree();
+		expect(emptyTree.size()).toEqual(0);
+	});
 	test("Size of single node tree is 1", () => {
 		expect(testTree.size()).toEqual(1);
 	});
@@ -133,17 +179,29 @@ describe("Size tests:", () => {
 });
 
 describe("Depth tests:", () => {
+	test("Depth of empty tree is 0", () => {
+		const emptyTree = new RBTree();
+		expect(emptyTree.depth()).toEqual(0);;
+	});
 	test("Depth of single node tree is 1", () => {
-		//TODO
-		expect(true).toBe(true);
+		expect(testTree.depth()).toEqual(1);
 	});
 	test("Depth changes when nodes are removed (if it should)", () => {
 		//TODO
 		expect(true).toBe(true);
 	});
-	test("Depth is always 2log2(n + 1)", () => {
-		//TODO
-		expect(true).toBe(true);
+	test("Depth is <= 2log2(n + 1)", () => {
+		testTree.insert(25);
+		testTree.insert(75);
+		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(3 + 1));
+		testTree.insert(100);		
+		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(4 + 1));
+		testTree.insert(35);
+		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(5 + 1));			
+		testTree.insert(15);			
+		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(6 + 1));								
+		testTree.insert(10);
+		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(7 + 1));			
 	});
 });
 
