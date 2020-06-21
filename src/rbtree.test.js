@@ -34,23 +34,28 @@ describe("General input processing and exception handling tests:", () => {
 
 describe("Insert tests:", () => {
 	describe("Binary tree properites:", () => {
-		let prevSize;
 		beforeEach(() => {
 			//Setup for tests in this describe block
-			prevSize = testTree.size();
 			testTree.insert(25);
 			testTree.insert(75);
 		});
+		test("Insertion on an empty tree", () => {
+			const blankTree = new RBTree();
+			expect(blankTree.root).toBeNull();
+			blankTree.insert(100);
+			expect(blankTree.root).not.toBeNull();
+			expect(blankTree.root.value).toEqual(100);
+		});
 		test("Unique element is inserted", () => {
-			expect(testTree.find(25)).not.toBeNull();
-			expect(testTree.find(75)).not.toBeNull();
-			expect(testTree.size()).toEqual(prevSize + 2);
+			expect(testTree.root.left.value).toEqual(25);
+			testTree.insert(15);
+			expect(testTree.root.left.left.value).toEqual(15);
 		});
 		test("Duplicate elements are not inserted", () => {
-			const preDupSize = testTree.size();
+			const preInsertTree = testTree;
 			testTree.insert(50);
 
-			expect(testTree.size()).toEqual(preDupSize);
+			expect(testTree).toEqual(preInsertTree);
 		});
 		test("Elements < root go in left subtree", () => {
 			expect(testTree.root.left).not.toBeNull();
