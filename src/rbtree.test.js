@@ -165,7 +165,7 @@ describe("Delete tests:", () => {
 				emptyTree.delete(100);
 			}).not.toThrow();
 		});
-		test("Deleting non-existant element hasd no effect", () => {
+		test("Deleting non-existant element has no effect", () => {
 			const preDeleteTree = testTree;
 			testTree.delete(10000);
 			//toEqual checks all the properties are the same while toBe checks that objects ARE the same
@@ -177,13 +177,35 @@ describe("Delete tests:", () => {
 			expect(testTree.root.right).not.toBeNull();
 			expect(testTree.root.right.value).toEqual(100);
 		});
+		test("Deleting element with one subtree", () => {
+			testTree.insert(15);
+			testTree.delete(25);
+			expect(testTree.root.left.value).toEqual(15);
+			expect(testTree.root.left.parent.value).toEqual(50);
+		});
+		test("Deleting element with two subtrees", () => {
+			testTree.insert(15);
+			testTree.insert(35);
+			testTree.delete(25);
+			expect(testTree.root.left.value).toEqual(35);
+			expect(testTree.root.left.parent.value).toEqual(50);
+			expect(testTree.root.left.left.value).toEqual(15);
+			expect(testTree.root.left.left.parent.value).toEqual(35);
+		});
+		test("Deleting element with no subtrees", () => {
+			testTree.delete(25);
+			expect(testTree.root.left).toBeNull();			
+		});
 	});
 	describe("Red black tree properites:", () => {
 		beforeEach(() => {
+			testTree.insert(25);
+			testTree.insert(75);
 			testTree.insert(100);
 			testTree.insert(35);
 			testTree.insert(15);
 			testTree.insert(10);
+			testTree.insert(12);
 		});
 		test("root is always black", () => {});
 		test("Case 1 is handled (parent & uncle are red)", () => {});
