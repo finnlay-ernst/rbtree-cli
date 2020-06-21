@@ -109,11 +109,13 @@ describe("Delete tests:", () => {
 			const singleNodeTree = new RBTree();
 			singleNodeTree.insert(100);
 			singleNodeTree.delete(100);
-			expect(singleNodeTree.root).toBeNull();			
+			expect(singleNodeTree.root).toBeNull();
 		});
 		test("Calling delete on a null tree is handled", () => {
 			const emptyTree = new RBTree();
-			expect(() => {emptyTree.delete(100)}).not.toThrow();					
+			expect(() => {
+				emptyTree.delete(100);
+			}).not.toThrow();
 		});
 		test("Deleting non-existant element hasd no effect", () => {
 			const preDeleteTree = testTree;
@@ -129,27 +131,17 @@ describe("Delete tests:", () => {
 		});
 	});
 	describe("Red black tree properites:", () => {
-		beforeEach(() => {			
-			testTree.insert(100);		
-			testTree.insert(35);			
-			testTree.insert(15);			
-			testTree.insert(10);			
+		beforeEach(() => {
+			testTree.insert(100);
+			testTree.insert(35);
+			testTree.insert(15);
+			testTree.insert(10);
 		});
-		test("root is always black", () => {
-
-		});
-		test("Case 1 is handled (parent & uncle are red)", () => {
-
-		});
-		test("Case 2 is handled (parent is red, uncle is black, inserted node's value is > parent's value)", () => {
-		
-		});
-		test("Case 3 is handled (parent is red, uncle is black, inserted node's value is < parent's value)", () => {
-			
-		});
-		test("Case 1 is checked up the tree", () => {
-			
-		});
+		test("root is always black", () => {});
+		test("Case 1 is handled (parent & uncle are red)", () => {});
+		test("Case 2 is handled (parent is red, uncle is black, inserted node's value is > parent's value)", () => {});
+		test("Case 3 is handled (parent is red, uncle is black, inserted node's value is < parent's value)", () => {});
+		test("Case 1 is checked up the tree", () => {});
 	});
 });
 
@@ -181,42 +173,68 @@ describe("Size tests:", () => {
 describe("Depth tests:", () => {
 	test("Depth of empty tree is 0", () => {
 		const emptyTree = new RBTree();
-		expect(emptyTree.depth()).toEqual(0);;
+		expect(emptyTree.depth()).toEqual(0);
 	});
 	test("Depth of single node tree is 1", () => {
 		expect(testTree.depth()).toEqual(1);
 	});
 	test("Depth changes when nodes are removed (if it should)", () => {
-		//TODO
-		expect(true).toBe(true);
+		testTree.insert(25);
+		testTree.insert(75);
+		testTree.insert(100);
+		testTree.insert(35);
+		testTree.insert(15);
+		testTree.insert(10);
+
+		expect(testTree.depth()).toEqual(4);
+		testTree.delete(25);
+		expect(testTree.depth()).toEqual(3);
+		testTree.delete(50);
+		expect(testTree.depth()).toEqual(3);
+		testTree.delete(10);
+		testTree.delete(100);
+		expect(testTree.depth()).toEqual(2);
 	});
 	test("Depth is <= 2log2(n + 1)", () => {
 		testTree.insert(25);
 		testTree.insert(75);
-		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(3 + 1));
-		testTree.insert(100);		
-		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(4 + 1));
+		expect(testTree.depth()).toBeLessThanOrEqual(2 * Math.log2(3 + 1));
+		testTree.insert(100);
+		expect(testTree.depth()).toBeLessThanOrEqual(2 * Math.log2(4 + 1));
 		testTree.insert(35);
-		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(5 + 1));			
-		testTree.insert(15);			
-		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(6 + 1));								
+		expect(testTree.depth()).toBeLessThanOrEqual(2 * Math.log2(5 + 1));
+		testTree.insert(15);
+		expect(testTree.depth()).toBeLessThanOrEqual(2 * Math.log2(6 + 1));
 		testTree.insert(10);
-		expect(testTree.depth()).toBeLessThanOrEqual(2*Math.log2(7 + 1));			
+		expect(testTree.depth()).toBeLessThanOrEqual(2 * Math.log2(7 + 1));
 	});
 });
 
 describe("Find tests:", () => {
+	beforeEach(() => {
+		testTree.insert(25);
+		testTree.insert(75);
+		testTree.insert(100);
+		testTree.insert(35);
+		testTree.insert(15);
+		testTree.insert(10);
+	});
 	test("Nodes in left subtree are returned", () => {
-		//TODO
-		expect(true).toBe(true);
+		expect(testTree.find(25)).toBeTruthy();
+		expect(testTree.find(15)).toBeTruthy();
+		expect(testTree.find(35)).toBeTruthy();
+		expect(testTree.find(10)).toBeTruthy();
 	});
 	test("Nodes in right subtree are returned", () => {
-		//TODO
-		expect(true).toBe(true);
+		expect(testTree.find(75)).toBeTruthy();
+		expect(testTree.find(100)).toBeTruthy();
 	});
 	test("Returns null for non-existant elements", () => {
-		//TODO
-		expect(true).toBe(true);
+		expect(testTree.find(750)).toBeNull();
+		expect(testTree.find(0)).toBeNull();
+		expect(testTree.find(-10)).toBeNull();
+		expect(testTree.find(5)).toBeNull();
+		expect(testTree.find(300)).toBeNull();
 	});
 });
 
@@ -226,30 +244,30 @@ describe("Flatten tests:", () => {
 		testTree.insert(25);
 		expect(testTree.flatten().length).toEqual(2);
 		testTree.insert(75);
-		expect(testTree.flatten().length).toEqual(3);		
-		testTree.insert(100);			
+		expect(testTree.flatten().length).toEqual(3);
+		testTree.insert(100);
 		expect(testTree.flatten().length).toEqual(4);
-		testTree.insert(35);		
+		testTree.insert(35);
 		expect(testTree.flatten().length).toEqual(5);
-		testTree.insert(15);				
+		testTree.insert(15);
 		expect(testTree.flatten().length).toEqual(6);
-		testTree.insert(10);	
-		expect(testTree.flatten().length).toEqual(7);	
+		testTree.insert(10);
+		expect(testTree.flatten().length).toEqual(7);
 	});
-	test("Flattens appropriately", () => {		
+	test("Flattens appropriately", () => {
 		expect(testTree.flatten()).toEqual([50]);
 		testTree.insert(25);
 		expect(testTree.flatten()).toEqual([25, 50]);
 		testTree.insert(75);
-		expect(testTree.flatten()).toEqual([25, 50, 75]);		
-		testTree.insert(100);	
+		expect(testTree.flatten()).toEqual([25, 50, 75]);
+		testTree.insert(100);
 		expect(testTree.flatten()).toEqual([25, 50, 75, 100]);
-		testTree.insert(35);	
-		expect(testTree.flatten()).toEqual([25, 35, 50, 75, 100]]);
-		testTree.insert(15);		
+		testTree.insert(35);
+		expect(testTree.flatten()).toEqual([25, 35, 50, 75, 100]);
+		testTree.insert(15);
 		expect(testTree.flatten()).toEqual([15, 25, 35, 50, 75, 100]);
-		testTree.insert(10);	
-		expect(testTree.flatten()).toEqual([10, 15, 25, 35, 50, 75, 100]);			
+		testTree.insert(10);
+		expect(testTree.flatten()).toEqual([10, 15, 25, 35, 50, 75, 100]);
 	});
 });
 
@@ -258,13 +276,13 @@ describe("Collapse tests:", () => {
 		expect(testTree.collapse().length).toEqual(1);
 		testTree.insert(25);
 		expect(testTree.collapse().length).toEqual(2);
-		testTree.insert(75);		
+		testTree.insert(75);
 		expect(testTree.collapse().length).toEqual(3);
-		testTree.insert(100);				
+		testTree.insert(100);
 		expect(testTree.collapse().length).toEqual(4);
-		testTree.insert(35);		
+		testTree.insert(35);
 		expect(testTree.collapse().length).toEqual(5);
-		testTree.insert(15);					
+		testTree.insert(15);
 		expect(testTree.collapse().length).toEqual(6);
 		testTree.insert(10);
 		expect(testTree.collapse().length).toEqual(7);
@@ -273,13 +291,13 @@ describe("Collapse tests:", () => {
 		expect(testTree.collapse()).toEqual([50]);
 		testTree.insert(25);
 		expect(testTree.collapse()).toEqual([50, 25]);
-		testTree.insert(75);	
+		testTree.insert(75);
 		expect(testTree.collapse()).toEqual([50, 25, 75]);
-		testTree.insert(100);		
+		testTree.insert(100);
 		expect(testTree.collapse()).toEqual([50, 25, 75, 100]);
-		testTree.insert(35);	
+		testTree.insert(35);
 		expect(testTree.collapse()).toEqual([50, 25, 35, 75, 100]);
-		testTree.insert(15);			
+		testTree.insert(15);
 		expect(testTree.collapse()).toEqual([50, 25, 15, 35, 75, 100]);
 		testTree.insert(10);
 		expect(testTree.collapse()).toEqual([50, 25, 15, 10, 35, 75, 100]);
