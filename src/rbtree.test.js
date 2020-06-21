@@ -68,27 +68,75 @@ describe("Insert tests:", () => {
 	});
 	describe("Red black tree properites:", () => {
 		test("root is always black", () => {
-			expect(testTree.root.colour).toBe(colours.Red);
+			expect(testTree.root.colour).toBe(colours.Black);
 			testTree.insert(100);
-			expect(testTree.root.colour).toBe(colours.Red);
+			expect(testTree.root.colour).toBe(colours.Black);
 			testTree.insert(35);
-			expect(testTree.root.colour).toBe(colours.Red);
+			expect(testTree.root.colour).toBe(colours.Black);
 			testTree.insert(15);
-			expect(testTree.root.colour).toBe(colours.Red);
+			expect(testTree.root.colour).toBe(colours.Black);
 			testTree.insert(10);
-			expect(testTree.root.colour).toBe(colours.Red);
+			expect(testTree.root.colour).toBe(colours.Black);
 		});
 		test("Case 1 is handled (parent & uncle are red)", () => {
 			//colours should swap
+			testTree.insert(25);
+			testTree.insert(75);
+			expect(testTree.root.left.colour).toBe(colours.Red);
+			expect(testTree.root.right.colour).toBe(colours.Red);
+			testTree.insert(35);
+			expect(testTree.root.left.colour).toBe(colours.Black);
+			expect(testTree.root.right.colour).toBe(colours.Black);
+			expect(testTree.root.left.right.colour).toBe(colours.Red);
 		});
 		test("Case 2 is handled (parent is red, uncle is black, inserted node's value is > parent's value)", () => {
 			//should result in left rotation -> right rotation
+			testTree.insert(25);
+			testTree.insert(75);
+			testTree.insert(35);
+			testTree.insert(15);
+			testTree.insert(10);
+			testTree.insert(12);
+			expect(testTree.root.left.colour).toBe(colours.Red);
+			expect(testTree.root.left.left.colour).toBe(colours.Black);
+			expect(testTree.root.left.left.value).toEqual(12);
+			expect(testTree.root.left.right.colour).toBe(colours.Black);
+			expect(testTree.root.left.left.left.colour).toBe(colours.Red);
+			expect(testTree.root.left.left.left.value).toEqual(10);
+			expect(testTree.root.left.left.right.value).toEqual(15);
 		});
 		test("Case 3 is handled (parent is red, uncle is black, inserted node's value is < parent's value)", () => {
 			//should result in right rotation
+			testTree.insert(25);
+			testTree.insert(75);
+			testTree.insert(35);
+			testTree.insert(15);
+			testTree.insert(10);
+			testTree.insert(5);
+			expect(testTree.root.left.colour).toBe(colours.Red);
+			expect(testTree.root.left.left.colour).toBe(colours.Black);
+			expect(testTree.root.left.left.value).toEqual(10);
+			expect(testTree.root.left.right.colour).toBe(colours.Black);
+			expect(testTree.root.left.left.left.colour).toBe(colours.Red);
+			expect(testTree.root.left.left.left.value).toEqual(5);
+			expect(testTree.root.left.left.right.value).toEqual(15);
 		});
-		test("Case 1 is checked up the tree", () => {
-			//should result in right rotation
+		test("Cases are checked up the tree", () => {
+			//inserting 5 results in a case 1, 
+			//fixing this case 1 results in a case 3 up the tree
+			testTree.insert(25);
+			testTree.insert(75);
+			testTree.insert(35);
+			testTree.insert(15);
+			testTree.insert(10);
+			testTree.insert(12);
+			testTree.insert(5);
+			expect(testTree.root.value).toEqual(25);
+			expect(testTree.root.left.value).toEqual(12);
+			expect(testTree.root.left.colour).toBe(colours.Red);
+			expect(testTree.root.right.value).toEqual(50);			
+			expect(testTree.root.right.colour).toBe(colours.Red);
+			expect(testTree.root.right.left.value).toEqual(35);			
 		});
 	});
 });
