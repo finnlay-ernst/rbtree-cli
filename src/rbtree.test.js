@@ -79,25 +79,25 @@ describe("Delete tests:", () => {
 			testTree.insert(75);
 		});
 		test("Existing element is deleted", () => {
-			const preDelSize = testTree.size();
-
-			expect(testTree.find(25)).not.toBeNull();
+			expect(testTree.root.left).not.toBeNull();
 			testTree.delete(25);
-
-			expect(testTree.find(25)).toBeNull();
-			expect(testTree.size()).toEqual(preDelSize - 1);
+			expect(testTree.root.left).toBeNull();
 		});
-		test("Deleting only element throws error", () => {
-			const singleNodeTree = new RBNode(100);
-			expect(() => {
-				singleNodeTree.delete(100);
-			}).toThrow();
+		test("Deleting only element results in null root", () => {
+			const singleNodeTree = new RBTree();
+			singleNodeTree.insert(100);
+			singleNodeTree.delete(100);
+			expect(singleNodeTree.root).toBeNull();			
+		});
+		test("Calling delete on a null tree is handled", () => {
+			const emptyTree = new RBTree();
+			expect(() => {emptyTree.delete(100)}).not.toThrow();					
 		});
 		test("Deleting non-existant element hasd no effect", () => {
-			const preDelManTree = testTree;
+			const preDeleteTree = testTree;
 			testTree.delete(10000);
 			//toEqual checks all the properties are the same while toBe checks that objects ARE the same
-			expect(testTree).toEqual(preDelManTree);
+			expect(testTree).toEqual(preDeleteTree);
 		});
 		test("Deleting element does not leave subtrees detatched", () => {
 			testTree.insert(100);
