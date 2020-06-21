@@ -222,8 +222,19 @@ describe("Find tests:", () => {
 
 describe("Flatten tests:", () => {
 	test("Array length is always equal to tree size", () => {
-		//TODO
-		expect(true).toBe(true);
+		expect(testTree.flatten().length).toEqual(1);
+		testTree.insert(25);
+		expect(testTree.flatten().length).toEqual(2);
+		testTree.insert(75);
+		expect(testTree.flatten().length).toEqual(3);		
+		testTree.insert(100);			
+		expect(testTree.flatten().length).toEqual(4);
+		testTree.insert(35);		
+		expect(testTree.flatten().length).toEqual(5);
+		testTree.insert(15);				
+		expect(testTree.flatten().length).toEqual(6);
+		testTree.insert(10);	
+		expect(testTree.flatten().length).toEqual(7);	
 	});
 	test("Flattens appropriately", () => {
 		//TODO
@@ -233,53 +244,21 @@ describe("Flatten tests:", () => {
 
 describe("Collapse tests:", () => {
 	test("Array length is always equal to tree size", () => {
-		//TODO
-		expect(true).toBe(true);
+		expect(testTree.collapse().length).toEqual(1);
+		testTree.insert(25);
+		expect(testTree.collapse().length).toEqual(2);
+		testTree.insert(75);		
+		expect(testTree.collapse().length).toEqual(3);
+		testTree.insert(100);				
+		expect(testTree.collapse().length).toEqual(4);
+		testTree.insert(35);		
+		expect(testTree.collapse().length).toEqual(5);
+		testTree.insert(15);					
+		expect(testTree.collapse().length).toEqual(6);
+		testTree.insert(10);
+		expect(testTree.collapse().length).toEqual(7);
 	});
 	test("Collapses appropriately", () => {
-		//TODO
-		expect(true).toBe(true);
-	});
-});
-
-describe("Rotation tests:", () => {
-	//TODO: complete test list
-	test("Calling rotate on node with no childeren has no effect", () => {
-		//TODO
-		expect(true).toBe(true);
-	});
-	describe("Left rotate tests:", () => {
-		test("Right child is now parent", () => {
-			//TODO
-			expect(true).toBe(true);
-		});
-	});
-	describe("Right rotate tests:", () => {
-		test("Left child is now parent", () => {
-			//TODO
-			expect(true).toBe(true);
-		});
-	});
-});
-
-describe("Test red black properties:", () => {
-	test("Root node is black in a single node tree", () => {
-		//TODO
-		expect(true).toBe(true);
-	});
-	test("Root node is black in a multi-node tree", () => {
-		//TODO
-		expect(true).toBe(true);
-	});
-	test("Null leaves are black", () => {
-		//TODO
-		expect(true).toBe(true);
-	});
-	test("All red nodes have black parents", () => {
-		//TODO
-		expect(true).toBe(true);
-	});
-	test("All paths to leaves have equivelent black node count", () => {
 		//TODO
 		expect(true).toBe(true);
 	});
