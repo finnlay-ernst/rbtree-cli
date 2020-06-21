@@ -1,8 +1,4 @@
-let { RBNode, RBTree } = require("./rbtree.js");
-
-test("Example test", () => {
-	expect(1 + 2).toBe(3);
-});
+let { RBTree } = require("./rbtree.js");
 
 let testTree;
 

@@ -12,7 +12,7 @@ Object.freeze(colours);
 */
 class RBNode {
 	//Default attributes
-	colour = colours.Black;
+	colour = colours.Red;
 	parent = null;
 	left = null;
 	right = null;
@@ -21,17 +21,21 @@ class RBNode {
 	}
 
 	/*
-        @param Value to be inserted    
+		@param Value to be inserted 
+		@return The inserted node
     */
 	insert(val) {
-		//TODO: implement insertion
+		//TODO: implement insert
+		return null;
 	}
 
 	/*
-        @param Value to be deleted 
+		@param Value to be deleted 
+		@return The node that replaced the deleted node 
     */
 	delete(val) {
 		//TODO: implement deletion
+		return null;
 	}
 
 	/*
@@ -73,6 +77,18 @@ class RBNode {
 	collapse() {
 		//TODO: implement collapse
 		return [];
+	}
+
+	/*
+		@return The minimum node in this subtree
+	*/
+	min(){
+		//TODO: implement min
+	}
+
+
+	fixup(){
+		//TODO: implement the 3 cases for fixup
 	}
 
 	leftRotate() {
