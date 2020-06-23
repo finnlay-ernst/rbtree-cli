@@ -375,7 +375,7 @@ describe("Flatten tests:", () => {
 });
 */
 
-describe("Collapse tests:", () => {
+describe.only("Collapse tests:", () => {
 	test("Array length is always equal to tree size", () => {
 		expect(testTree.collapse().length).toEqual(1);
 		testTree.insert(25);

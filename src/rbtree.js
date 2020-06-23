@@ -31,6 +31,13 @@ class RBNode {
 		}
 		return 1 + Math.max(leftDepth, rightDepth);
 	}
+
+	collapse(currentArray) {
+		currentArray.push(this.value);
+		if (this.left) currentArray.concat(this.left.collapse(currentArray));
+		if (this.right) currentArray.concat(this.right.collapse(currentArray));
+		return currentArray;
+	}
 }
 
 /*
@@ -130,7 +137,7 @@ class RBTree {
 		@return An array of all nodes in the tree starting from root (so that reinserting would not require rotation, good for serilization)
 	*/
 	collapse() {
-		return this.root !== null ? this.root.collapse() : [];
+		return this.root !== null ? this.root.collapse([]) : [];
 	}
 
 	/*
