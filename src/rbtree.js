@@ -80,9 +80,18 @@ class RBTree {
         @param Value to be found 
         @return The object representing that node or null if not found
     */
-	find(val) {
-		//TODO: ensure val is valid input
-		return this.root !== null ? this.root.find(val) : null;
+	find(val) {		
+		let currentNode = this.root;
+		while (currentNode !== null) {
+			if (val > currentNode.value) {
+				currentNode = currentNode.right;
+			} else if (val < currentNode.value) {
+				currentNode = currentNode.left;
+			} else {				
+				return currentNode;
+			}
+		}	
+		return currentNode;	
 	}
 
 	/* 
@@ -145,7 +154,7 @@ class RBTree {
 			} else {
 				if (
 					(parentIsLeft && currentNode.parent.right === currentNode) ||
-					(!parentIsLeft && currentNode.parent.left === currentNode)
+					(!parentIsLeft && currentNode.parent.left === currentNode)){
 					//Case 2: uncle is black and triangle formed
 					currentNode = currentNode.parent;
 					this.leftRotate(currentNode);
