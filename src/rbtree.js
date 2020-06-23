@@ -53,6 +53,7 @@ class RBTree {
 		@param Value to be inserted 
     */
 	insert(val) {
+		if (isNaN(val))	throw 'Input not a number';
 		if (this.root === null) {
 			this.root = new RBNode(val);
 			this.root.colour = colours.Black;
@@ -95,6 +96,7 @@ class RBTree {
         @param Value to be deleted 
     */
 	delete(val) {
+		if (isNaN(val))	throw 'Input not a number';
 		if (this.root !== null) this.root.delete(val);
 		//TODO: implement deletion
 	}
@@ -104,6 +106,7 @@ class RBTree {
         @return The object representing that node or null if not found
     */
 	find(val) {
+		if (isNaN(val))	throw 'Input not a number';
 		let currentNode = this.root;
 		while (currentNode !== null) {
 			if (val > currentNode.value) {
