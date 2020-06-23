@@ -33,7 +33,10 @@ class RBTree {
 		@param Value to be inserted 
     */
 	insert(val) {
-		if (this.root === null) this.root = new RBNode(val);
+		if (this.root === null) {
+			this.root = new RBNode(val);
+			this.root.colour = colours.Black;
+		}
 		else {
 			let currentNode = this.root;
 			while (currentNode !== null) {
@@ -129,7 +132,11 @@ class RBTree {
 		{
 			let parentIsLeft = currentNode.parent.parent.left === currentNode.parent;
 			let uncle = (parentIsLeft) ? currentNode.parent.parent.right : currentNode.parent.parent.left; 
-
+			if (!uncle) {
+				uncle = new RBNode(null);
+				uncle.colour = colours.Black;
+			}
+			
 			if (uncle.colour === colours.Red){
 				//Case 1: red uncle
 				currentNode.parent.colour = colours.Black;
@@ -137,6 +144,8 @@ class RBTree {
 				currentNode.parent.parent.colour = colours.Red;
 				//Now we check cases again on the grandparent
 				currentNode = currentNode.parent.parent;
+				//No need to check cases on the root
+				if (this.root.value == currentNode.value) break;
 			} 
 			else {
 				if ((parentIsLeft && currentNode.parent.right === currentNode) || (!parentIsLeft && currentNode.parent.left === currentNode)){
