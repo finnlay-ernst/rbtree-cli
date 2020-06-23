@@ -36,39 +36,34 @@ class RBTree {
 		if (this.root === null) {
 			this.root = new RBNode(val);
 			this.root.colour = colours.Black;
-		}
-		else {
+		} else {
 			let currentNode = this.root;
 			while (currentNode !== null) {
 				if (val > currentNode.value) {
 					//Take advantage of the fact that null is falsy
 					if (currentNode.right) {
 						currentNode = currentNode.right;
-					} 
-					else {
+					} else {
 						currentNode.right = new RBNode(val);
 						currentNode.right.parent = currentNode;
 						//Finish insertion with currentNode pointing to the inserted node so fixup is easy
-						currentNode = currentNode.right; 
+						currentNode = currentNode.right;
 						break;
 					}
-				} 
-				else if (val < currentNode.value) {
+				} else if (val < currentNode.value) {
 					if (currentNode.left) {
 						currentNode = currentNode.left;
-					} 
-					else {
+					} else {
 						currentNode.left = new RBNode(val);
 						currentNode.left.parent = currentNode;
 						currentNode = currentNode.left;
 						break;
 					}
-				} 
-				else {
+				} else {
 					//Element already in tree
 					return null;
 				}
-			}			
+			}
 			this.insertFixup(currentNode);
 		}
 	}
@@ -128,16 +123,17 @@ class RBTree {
 	insertFixup(insertedNode) {
 		//Start off with the node fixup was called with
 		let currentNode = insertedNode;
-		while (currentNode.parent.colour === colours.Red)
-		{
+		while (currentNode.parent.colour === colours.Red) {
 			let parentIsLeft = currentNode.parent.parent.left === currentNode.parent;
-			let uncle = (parentIsLeft) ? currentNode.parent.parent.right : currentNode.parent.parent.left; 
+			let uncle = parentIsLeft
+				? currentNode.parent.parent.right
+				: currentNode.parent.parent.left;
 			if (!uncle) {
 				uncle = new RBNode(null);
 				uncle.colour = colours.Black;
 			}
-			
-			if (uncle.colour === colours.Red){
+
+			if (uncle.colour === colours.Red) {
 				//Case 1: red uncle
 				currentNode.parent.colour = colours.Black;
 				uncle.colour = colours.Black;
@@ -146,9 +142,10 @@ class RBTree {
 				currentNode = currentNode.parent.parent;
 				//No need to check cases on the root
 				if (this.root.value == currentNode.value) break;
-			} 
-			else {
-				if ((parentIsLeft && currentNode.parent.right === currentNode) || (!parentIsLeft && currentNode.parent.left === currentNode)){
+			} else {
+				if (
+					(parentIsLeft && currentNode.parent.right === currentNode) ||
+					(!parentIsLeft && currentNode.parent.left === currentNode)
 					//Case 2: uncle is black and triangle formed
 					currentNode = currentNode.parent;
 					this.leftRotate(currentNode);
@@ -169,19 +166,17 @@ class RBTree {
 	leftRotate(rotate) {
 		let insert = rotate.right;
 		rotate.right = insert.left;
-		if (insert.left){
+		if (insert.left) {
 			insert.left.parent = rotate;
 		}
 		insert.parent = rotate.parent;
-		if (!rotate.parent){
+		if (!rotate.parent) {
 			//We were rotating the root
-			this.root = insert;		
-		}
-		else if (rotate.parent.left === rotate){
-			rotate.parent.left = insert;			
-		}
-		else {
-			rotate.parent.right = insert;	
+			this.root = insert;
+		} else if (rotate.parent.left === rotate) {
+			rotate.parent.left = insert;
+		} else {
+			rotate.parent.right = insert;
 		}
 		insert.left = rotate;
 		rotate.parent = insert;
@@ -190,19 +185,17 @@ class RBTree {
 	rightRotate(rotate) {
 		let insert = rotate.left;
 		rotate.left = insert.right;
-		if (insert.right){
+		if (insert.right) {
 			insert.right.parent = rotate;
 		}
 		insert.parent = rotate.parent;
-		if (!rotate.parent){
+		if (!rotate.parent) {
 			//We were rotating the root
-			this.root = insert;		
-		}
-		else if (rotate.parent.left === rotate){
-			rotate.parent.left = insert;			
-		}
-		else {
-			rotate.parent.right = insert;	
+			this.root = insert;
+		} else if (rotate.parent.left === rotate) {
+			rotate.parent.left = insert;
+		} else {
+			rotate.parent.right = insert;
 		}
 		insert.right = rotate;
 		rotate.parent = insert;

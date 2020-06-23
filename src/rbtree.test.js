@@ -122,7 +122,7 @@ describe.only("Insert tests:", () => {
 			expect(testTree.root.left.left.right.value).toEqual(15);
 		});
 		test("Cases are checked up the tree", () => {
-			//inserting 5 results in a case 1, 
+			//inserting 5 results in a case 1,
 			//fixing this case 1 results in a case 3 up the tree
 			testTree.insert(25);
 			testTree.insert(75);
@@ -134,9 +134,9 @@ describe.only("Insert tests:", () => {
 			expect(testTree.root.value).toEqual(25);
 			expect(testTree.root.left.value).toEqual(12);
 			expect(testTree.root.left.colour).toBe(colours.Red);
-			expect(testTree.root.right.value).toEqual(50);			
+			expect(testTree.root.right.value).toEqual(50);
 			expect(testTree.root.right.colour).toBe(colours.Red);
-			expect(testTree.root.right.left.value).toEqual(35);			
+			expect(testTree.root.right.left.value).toEqual(35);
 		});
 	});
 });
@@ -194,7 +194,7 @@ describe("Delete tests:", () => {
 		});
 		test("Deleting element with no subtrees", () => {
 			testTree.delete(25);
-			expect(testTree.root.left).toBeNull();			
+			expect(testTree.root.left).toBeNull();
 		});
 	});
 	describe("Red black tree properites:", () => {
@@ -240,8 +240,7 @@ describe("Delete tests:", () => {
 			expect(testTree.root.right.value).toEqual(100);
 			expect(testTree.root.right.colour).toBe(colours.Black);
 		});
-		test("Replacer node's replacer is black & has red sibling", () => {		
-		});
+		test("Replacer node's replacer is black & has red sibling", () => {});
 		test("Replacer node's replacer is black & has black sibling with two black childeren", () => {});
 		test("Replacer node's replacer is black & has black sibling with red left child, black right child", () => {});
 		test("Replacer node's replacer is black & has black sibling with red right child", () => {});
