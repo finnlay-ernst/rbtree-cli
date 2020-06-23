@@ -32,7 +32,7 @@ describe("General input processing and exception handling tests:", () => {
 	});
 });
 
-describe("Insert tests:", () => {
+describe.only("Insert tests:", () => {
 	beforeEach(() => {
 		//Setup for tests in this describe block
 		testTree.insert(25);

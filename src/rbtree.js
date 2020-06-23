@@ -44,6 +44,9 @@ class RBTree {
 					} 
 					else {
 						currentNode.right = new RBNode(val);
+						currentNode.right.parent = currentNode;
+						//Finish insertion with currentNode pointing to the inserted node so fixup is easy
+						currentNode = currentNode.right; 
 						break;
 					}
 				} 
@@ -53,6 +56,8 @@ class RBTree {
 					} 
 					else {
 						currentNode.left = new RBNode(val);
+						currentNode.left.parent = currentNode;
+						currentNode = currentNode.left;
 						break;
 					}
 				} 
@@ -61,7 +66,7 @@ class RBTree {
 					return null;
 				}
 			}			
-			//TODO: fixup the tree
+			this.insertFixup(currentNode);
 		}
 	}
 
@@ -117,20 +122,81 @@ class RBTree {
 		//TODO: implement min
 	}
 
-	insertFixup() {
-		//TODO: implement the 3 cases for fixup
+	insertFixup(insertedNode) {
+		//Start off with the node fixup was called with
+		let currentNode = insertedNode;
+		while (currentNode.parent.colour === colours.Red)
+		{
+			let parentIsLeft = currentNode.parent.parent.left === currentNode.parent;
+			let uncle = (parentIsLeft) ? currentNode.parent.parent.right : currentNode.parent.parent.left; 
+
+			if (uncle.colour === colours.Red){
+				//Case 1: red uncle
+				currentNode.parent.colour = colours.Black;
+				uncle.colour = colours.Black;
+				currentNode.parent.parent.colour = colours.Red;
+				//Now we check cases again on the grandparent
+				currentNode = currentNode.parent.parent;
+			} 
+			else {
+				if ((parentIsLeft && currentNode.parent.right === currentNode) || (!parentIsLeft && currentNode.parent.left === currentNode)){
+					//Case 2: uncle is black and triangle formed
+					currentNode = currentNode.parent;
+					this.leftRotate(currentNode);
+				}
+				//Case 3: uncle is black and line formed
+				currentNode.parent.colour = colours.Black;
+				currentNode.parent.parent.colour = colours.Red;
+				this.rightRotate(currentNode.parent.parent);
+			}
+		}
+		this.root.colour = colours.Black;
 	}
 
 	deleteFixup() {
 		//TODO: implement the 4 cases for fixup
 	}
 
-	leftRotate() {
-		//TODO: implement leftRotate
+	leftRotate(rotate) {
+		let insert = rotate.right;
+		rotate.right = insert.left;
+		if (insert.left){
+			insert.left.parent = rotate;
+		}
+		insert.parent = rotate.parent;
+		if (!rotate.parent){
+			//We were rotating the root
+			this.root = insert;		
+		}
+		else if (rotate.parent.left === rotate){
+			rotate.parent.left = insert;			
+		}
+		else {
+			rotate.parent.right = insert;	
+		}
+		insert.left = rotate;
+		rotate.parent = insert;
 	}
 
-	rightRotate() {
-		//TODO: implement rightRotate
+	rightRotate(rotate) {
+		let insert = rotate.left;
+		rotate.left = insert.right;
+		if (insert.right){
+			insert.right.parent = rotate;
+		}
+		insert.parent = rotate.parent;
+		if (!rotate.parent){
+			//We were rotating the root
+			this.root = insert;		
+		}
+		else if (rotate.parent.left === rotate){
+			rotate.parent.left = insert;			
+		}
+		else {
+			rotate.parent.right = insert;	
+		}
+		insert.right = rotate;
+		rotate.parent = insert;
 	}
 }
 
