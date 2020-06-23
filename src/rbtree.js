@@ -80,18 +80,18 @@ class RBTree {
         @param Value to be found 
         @return The object representing that node or null if not found
     */
-	find(val) {		
+	find(val) {
 		let currentNode = this.root;
 		while (currentNode !== null) {
 			if (val > currentNode.value) {
 				currentNode = currentNode.right;
 			} else if (val < currentNode.value) {
 				currentNode = currentNode.left;
-			} else {				
+			} else {
 				return currentNode;
 			}
-		}	
-		return currentNode;	
+		}
+		return currentNode;
 	}
 
 	/* 
@@ -126,7 +126,19 @@ class RBTree {
 		@return The minimum node in this subtree
 	*/
 	min() {
-		//TODO: implement min
+		let currentNode = this.root;
+		while (currentNode !== null) {
+			if (val > currentNode.value) {
+				if (currentNode.right) currentNode = currentNode.right;
+				else return null;
+			} else if (val < currentNode.value) {
+				if (currentNode.left) currentNode = currentNode.left;
+				else return null;
+			} else {
+				return currentNode;
+			}
+		}
+		return null;
 	}
 
 	insertFixup(insertedNode) {
@@ -154,7 +166,8 @@ class RBTree {
 			} else {
 				if (
 					(parentIsLeft && currentNode.parent.right === currentNode) ||
-					(!parentIsLeft && currentNode.parent.left === currentNode)){
+					(!parentIsLeft && currentNode.parent.left === currentNode)
+				) {
 					//Case 2: uncle is black and triangle formed
 					currentNode = currentNode.parent;
 					this.leftRotate(currentNode);
