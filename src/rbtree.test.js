@@ -207,11 +207,44 @@ describe("Delete tests:", () => {
 			testTree.insert(10);
 			testTree.insert(12);
 		});
-		test("root is always black", () => {});
-		test("Case 1 is handled (parent & uncle are red)", () => {});
-		test("Case 2 is handled (parent is red, uncle is black, inserted node's value is > parent's value)", () => {});
-		test("Case 3 is handled (parent is red, uncle is black, inserted node's value is < parent's value)", () => {});
-		test("Case 1 is checked up the tree", () => {});
+		test("root is always black", () => {
+			testTree.delete(25);
+			expect(testTree.root.colour).toBe(colours.Black);
+			testTree.delete(75);
+			expect(testTree.root.colour).toBe(colours.Black);
+			testTree.delete(100);
+			expect(testTree.root.colour).toBe(colours.Black);
+			testTree.delete(35);
+			expect(testTree.root.colour).toBe(colours.Black);
+			testTree.delete(15);
+			expect(testTree.root.colour).toBe(colours.Black);
+			testTree.delete(10);
+			expect(testTree.root.colour).toBe(colours.Black);
+			testTree.delete(12);
+			expect(testTree.root.colour).toBe(colours.Black);
+		});
+		test("Left child null is handled", () => {
+			testTree.delete(10);
+			testTree.delete(12);
+			expect(testTree.root.left.left.value).toEqual(15);
+			expect(testTree.root.left.left.colour).toBe(colours.Black);
+		});
+		test("Right child null is handled", () => {
+			testTree.delete(15);
+			testTree.delete(12);
+			expect(testTree.root.left.left.value).toEqual(10);
+			expect(testTree.root.left.left.colour).toBe(colours.Black);
+		});
+		test("Replacer node red handled", () => {
+			testTree.delete(75);
+			expect(testTree.root.right.value).toEqual(100);
+			expect(testTree.root.right.colour).toBe(colours.Black);
+		});
+		test("Replacer node's replacer is black & has red sibling", () => {		
+		});
+		test("Replacer node's replacer is black & has black sibling with two black childeren", () => {});
+		test("Replacer node's replacer is black & has black sibling with red left child, black right child", () => {});
+		test("Replacer node's replacer is black & has black sibling with red right child", () => {});
 	});
 });
 

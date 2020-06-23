@@ -1,3 +1,5 @@
+const { black } = require("chalk");
+
 //Colours that a node can be
 const colours = {
 	Red: "RED",
@@ -106,7 +108,7 @@ class RBNode {
 */
 class RBTree {
 	constructor() {
-		this.root = null;
+		this.root = null;	
 	}
 
 	insert(val) {
