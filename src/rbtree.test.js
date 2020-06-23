@@ -272,7 +272,7 @@ describe("Size tests:", () => {
 	});
 });
 
-describe.only("Depth tests:", () => {
+describe("Depth tests:", () => {
 	test("Depth of empty tree is 0", () => {
 		const emptyTree = new RBTree();
 		expect(emptyTree.depth()).toEqual(0);
@@ -340,6 +340,7 @@ describe("Find tests:", () => {
 	});
 });
 
+/*
 describe("Flatten tests:", () => {
 	test("Array length is always equal to tree size", () => {
 		expect(testTree.flatten().length).toEqual(1);
@@ -372,6 +373,7 @@ describe("Flatten tests:", () => {
 		expect(testTree.flatten()).toEqual([10, 15, 25, 35, 50, 75, 100]);
 	});
 });
+*/
 
 describe("Collapse tests:", () => {
 	test("Array length is always equal to tree size", () => {

@@ -21,8 +21,8 @@ class RBNode {
 	}
 
 	depth(){
-		leftDepth = 0;
-		righttDepth = 0;
+		let leftDepth = 0;
+		let rightDepth = 0;
 		if (this.left){
 			leftDepth = this.left.depth();
 		}
@@ -120,9 +120,11 @@ class RBTree {
 	/*        
 		@return An array of all values in the tree left to right
 	*/
+	/*
 	flatten() {
 		return this.root !== null ? this.root.flatten() : [];
 	}
+	*/
 
 	/*        
 		@return An array of all nodes in the tree starting from root (so that reinserting would not require rotation, good for serilization)
