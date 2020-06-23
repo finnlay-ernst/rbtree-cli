@@ -247,7 +247,7 @@ describe("Delete tests:", () => {
 	});
 });
 
-describe.only("Size tests:", () => {
+describe("Size tests:", () => {
 	test("Size of single node tree is 0", () => {
 		const emptyTree = new RBTree();
 		expect(emptyTree.size).toEqual(0);
@@ -272,7 +272,7 @@ describe.only("Size tests:", () => {
 	});
 });
 
-describe("Depth tests:", () => {
+describe.only("Depth tests:", () => {
 	test("Depth of empty tree is 0", () => {
 		const emptyTree = new RBTree();
 		expect(emptyTree.depth()).toEqual(0);

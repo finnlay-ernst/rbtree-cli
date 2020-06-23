@@ -19,6 +19,18 @@ class RBNode {
 	constructor(value) {
 		this.value = value;
 	}
+
+	depth(){
+		leftDepth = 0;
+		righttDepth = 0;
+		if (this.left){
+			leftDepth = this.left.depth();
+		}
+		if (this.right){
+			rightDepth = this.right.depth();
+		}
+		return 1 + Math.max(leftDepth, rightDepth);
+	}
 }
 
 /*
@@ -102,7 +114,7 @@ class RBTree {
 		@return The number of levels in the tree
 	*/
 	depth() {
-		return this.root !== null ? this.root.depth() : 0;
+		return (this.root !== null) ? this.root.depth() : 0;
 	}
 
 	/*        
@@ -124,16 +136,9 @@ class RBTree {
 	*/
 	min() {
 		let currentNode = this.root;
-		while (currentNode !== null) {
-			if (val > currentNode.value) {
-				if (currentNode.right) currentNode = currentNode.right;
-				else return null;
-			} else if (val < currentNode.value) {
-				if (currentNode.left) currentNode = currentNode.left;
-				else return null;
-			} else {
-				return currentNode;
-			}
+		while (currentNode !== null) {			
+			if (currentNode.left) currentNode = currentNode.left;
+			else return currentNode;
 		}
 		return null;
 	}
