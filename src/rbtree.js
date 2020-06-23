@@ -26,7 +26,7 @@ class RBNode {
 */
 class RBTree {
 	constructor() {
-		this.root = null;	
+		this.root = null;
 	}
 
 	/*
@@ -34,8 +34,35 @@ class RBTree {
     */
 	insert(val) {
 		if (this.root === null) this.root = new RBNode(val);
-		else this.root.insert(val);
-		//TODO: implement insertion
+		else {
+			let currentNode = this.root;
+			while (currentNode !== null) {
+				if (val > currentNode.value) {
+					//Take advantage of the fact that null is falsy
+					if (currentNode.right) {
+						currentNode = currentNode.right;
+					} 
+					else {
+						currentNode.right = new RBNode(val);
+						break;
+					}
+				} 
+				else if (val < currentNode.value) {
+					if (currentNode.left) {
+						currentNode = currentNode.left;
+					} 
+					else {
+						currentNode.left = new RBNode(val);
+						break;
+					}
+				} 
+				else {
+					//Element already in tree
+					return null;
+				}
+			}			
+			//TODO: fixup the tree
+		}
 	}
 
 	/*
@@ -86,15 +113,15 @@ class RBTree {
 	/*
 		@return The minimum node in this subtree
 	*/
-	min(){
+	min() {
 		//TODO: implement min
 	}
 
-	insertFixup(){
+	insertFixup() {
 		//TODO: implement the 3 cases for fixup
 	}
 
-	deleteFixup(){
+	deleteFixup() {
 		//TODO: implement the 4 cases for fixup
 	}
 

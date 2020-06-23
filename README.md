@@ -8,19 +8,19 @@ Languages: JavaScript
 - [x]  Find a good page documenting rules
 - [x]  Setup project structure and Git
 - [x]  Determine what functions to support (find, size, flatten, etc)
-- [ ]  Implement function stubs & tests
-    - [ ] Insert works
-    - [ ] Delete works
-    - [ ] Find works
-    - [ ] Duplicate insertion
-    - [ ] Deletion of a non-existant element
-    - [ ] Test functions on null root
-    - [ ] Left rotation works
-    - [ ] Right rotation works
-    - [ ] Approriate colour adjustments after rotation
-    - [ ] Check properties (black root, black leaves, red node = black parent, all paths to leaves contain same black node count, max height 2log2(n+1))
-    - [ ] Insert maintains red black tree properties 
-    - [ ] Delete maintains red black tree properties
+- [x]  Implement function stubs & tests
+    - [x] Insert works
+    - [x] Delete works
+    - [x] Find works
+    - [x] Duplicate insertion
+    - [x] Deletion of a non-existant element
+    - [x] Test functions on null root
+    - [x] Left rotation works
+    - [x] Right rotation works
+    - [x] Approriate colour adjustments after rotation
+    - [x] Check properties (black root, black leaves, red node = black parent, all paths to leaves contain same black node count, max height 2log2(n+1))
+    - [x] Insert maintains red black tree properties 
+    - [x] Delete maintains red black tree properties
 - [ ]  Implement functions
     - [ ] Insert
     - [ ] Delete
