@@ -25,6 +25,7 @@ class RBNode {
     Tree class for performing operations on the tree
 */
 class RBTree {
+	size = 0;
 	constructor() {
 		this.root = null;
 	}
@@ -36,6 +37,7 @@ class RBTree {
 		if (this.root === null) {
 			this.root = new RBNode(val);
 			this.root.colour = colours.Black;
+			this.size++;
 		} else {
 			let currentNode = this.root;
 			while (currentNode !== null) {
@@ -44,6 +46,7 @@ class RBTree {
 					if (currentNode.right) {
 						currentNode = currentNode.right;
 					} else {
+						this.size++;
 						currentNode.right = new RBNode(val);
 						currentNode.right.parent = currentNode;
 						//Finish insertion with currentNode pointing to the inserted node so fixup is easy
@@ -54,6 +57,7 @@ class RBTree {
 					if (currentNode.left) {
 						currentNode = currentNode.left;
 					} else {
+						this.size++;
 						currentNode.left = new RBNode(val);
 						currentNode.left.parent = currentNode;
 						currentNode = currentNode.left;
@@ -92,13 +96,6 @@ class RBTree {
 			}
 		}
 		return currentNode;
-	}
-
-	/* 
-		@return Total number of nodes in the tree 
-	*/
-	size() {
-		return this.root !== null ? this.root.size() : 0;
 	}
 
 	/*

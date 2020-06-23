@@ -247,28 +247,28 @@ describe("Delete tests:", () => {
 	});
 });
 
-describe("Size tests:", () => {
+describe.only("Size tests:", () => {
 	test("Size of single node tree is 0", () => {
 		const emptyTree = new RBTree();
-		expect(emptyTree.size()).toEqual(0);
+		expect(emptyTree.size).toEqual(0);
 	});
 	test("Size of single node tree is 1", () => {
-		expect(testTree.size()).toEqual(1);
+		expect(testTree.size).toEqual(1);
 	});
 	test("Adding nodes increases size appropriately", () => {
 		testTree.insert(25);
 		testTree.insert(75);
-		expect(testTree.size()).toEqual(3);
+		expect(testTree.size).toEqual(3);
 	});
 	test("Removing nodes decreases size appropriately", () => {
 		testTree.insert(25);
 		testTree.insert(75);
-		expect(testTree.size()).toEqual(3);
+		expect(testTree.size).toEqual(3);
 
 		testTree.delete(25);
-		expect(testTree.size()).toEqual(2);
+		expect(testTree.size).toEqual(2);
 		testTree.delete(75);
-		expect(testTree.size()).toEqual(1);
+		expect(testTree.size).toEqual(1);
 	});
 });
 
@@ -312,7 +312,7 @@ describe("Depth tests:", () => {
 	});
 });
 
-describe.only("Find tests:", () => {
+describe("Find tests:", () => {
 	beforeEach(() => {
 		testTree.insert(25);
 		testTree.insert(75);
