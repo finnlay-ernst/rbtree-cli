@@ -277,8 +277,8 @@ describe("Depth tests:", () => {
 		const emptyTree = new RBTree();
 		expect(emptyTree.depth()).toEqual(0);
 	});
-	test("Depth of single node tree is 1", () => {
-		expect(testTree.depth()).toEqual(1);
+	test("Depth of single node tree is 2", () => {
+		expect(testTree.depth()).toEqual(2);
 	});
 	test("Depth changes when nodes are removed (if it should)", () => {
 		testTree.insert(25);
@@ -288,14 +288,14 @@ describe("Depth tests:", () => {
 		testTree.insert(15);
 		testTree.insert(10);
 
-		expect(testTree.depth()).toEqual(4);
+		expect(testTree.depth()).toEqual(5);
 		testTree.delete(25);
-		expect(testTree.depth()).toEqual(3);
+		expect(testTree.depth()).toEqual(4);
 		testTree.delete(50);
-		expect(testTree.depth()).toEqual(3);
+		expect(testTree.depth()).toEqual(4);
 		testTree.delete(10);
 		testTree.delete(100);
-		expect(testTree.depth()).toEqual(2);
+		expect(testTree.depth()).toEqual(3);
 	});
 	test("Depth is <= 2log2(n + 1)", () => {
 		testTree.insert(25);

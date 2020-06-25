@@ -43,8 +43,8 @@ class RBNode {
 
 	collapse(currentArray) {
 		currentArray.push(this.value);
-		if (this.left) currentArray.concat(this.left.collapse(currentArray));
-		if (this.right) currentArray.concat(this.right.collapse(currentArray));
+		if (this.left.value !== null) currentArray.concat(this.left.collapse(currentArray));
+		if (this.right.value !== null) currentArray.concat(this.right.collapse(currentArray));
 		return currentArray;
 	}
 }
@@ -76,8 +76,7 @@ class RBTree {
 		} else {
 			let currentNode = this.root;
 			while (currentNode.value !== null) {
-				if (val > currentNode.value) {
-					//Take advantage of the fact that null is falsy
+				if (val > currentNode.value) {					
 					if (currentNode.right.value) {
 						currentNode = currentNode.right;
 					} else {
@@ -89,7 +88,7 @@ class RBTree {
 						break;
 					}
 				} else if (val < currentNode.value) {
-					if (currentNode.left) {
+					if (currentNode.left.value !== null) {
 						currentNode = currentNode.left;
 					} else {
 						this.size++;
@@ -114,13 +113,13 @@ class RBTree {
 		if (isNaN(val))	throw 'Input not a number';
 		let deletee = this.find(val);
 		let replacer;
-		if (!deletee) return null;
-		if (!deletee.left){
-			replacer = (deletee.right) ? deletee.right : new RBNode(null);
+		if (deletee === null) return null;
+		if (deletee.left.value === null){
+			replacer = deletee.right;
 			this.relocate(deletee, deletee.right);
 		}
-		else if (!deletee.right){
-			replacer = (deletee.left) ? deletee.left : new RBNode(null);
+		else if (deletee.right.value === null){
+			replacer = deletee.left;
 			this.relocate(deletee, deletee.left);
 		}
 		else {
@@ -136,7 +135,7 @@ class RBTree {
 	find(val) {
 		if (isNaN(val))	throw 'Input not a number';
 		let currentNode = this.root;
-		while (currentNode !== null) {
+		while (currentNode.value !== null) {
 			if (val > currentNode.value) {
 				currentNode = currentNode.right;
 			} else if (val < currentNode.value) {
@@ -145,7 +144,7 @@ class RBTree {
 				return currentNode;
 			}
 		}
-		return currentNode;
+		return null;
 	}
 
 	/*
@@ -174,10 +173,10 @@ class RBTree {
 	/*
 		@return The minimum node in this subtree
 	*/
-	min() {
-		let currentNode = this.root;
-		while (currentNode !== null) {			
-			if (currentNode.left) currentNode = currentNode.left;
+	min(startingNode) {
+		let currentNode = startingNode;
+		while (currentNode.value !== null) {			
+			if (currentNode.left.value !== null) currentNode = currentNode.left;
 			else return currentNode;
 		}
 		return null;
@@ -190,11 +189,7 @@ class RBTree {
 			let parentIsLeft = currentNode.parent.parent.left === currentNode.parent;
 			let uncle = parentIsLeft
 				? currentNode.parent.parent.right
-				: currentNode.parent.parent.left;
-			if (!uncle) {
-				uncle = new RBNode(null);
-				uncle.colour = colours.Black;
-			}
+				: currentNode.parent.parent.left;			
 
 			if (uncle.colour === colours.Red) {
 				//Case 1: red uncle
