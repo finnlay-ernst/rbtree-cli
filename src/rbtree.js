@@ -42,15 +42,39 @@ class RBNode {
 	}
 
 	collapse(currentArray) {
+		if (this.value === null) return [];
 		currentArray.push(this.value);
 		if (this.left.value !== null) currentArray.concat(this.left.collapse(currentArray));
 		if (this.right.value !== null) currentArray.concat(this.right.collapse(currentArray));
 		return currentArray;
 	}
 
+	flatten(currentArray) {
+		if (this.value === null) return [];
+		currentArray.push({value: this.value, colour: this.colour});
+		if (this.left.value !== null) currentArray.concat(this.left.flatten(currentArray));
+		if (this.right.value !== null) currentArray.concat(this.right.flatten(currentArray));
+		return currentArray;
+	}
+
+	display(displayString, width, level){
+		if (this.value === null) return;
+		displayString[level] += `	`.repeat(width/(2^level)); 
+		displayString[level] += `${nodeToConsole(this.colour)(this.value)}`; 
+		displayString[level] += `	`.repeat(width/(2^level)); 
+		this.left.display(displayString, width, level+1);
+		this.right.display(displayString, width, level+1);
+
+		return displayString;
+	}
+
 	print() {
 		return `Value: ${this.value}, Colour: ${this.colour}, Parent: ${this.parent.value}, Left: ${this.left}, Right: ${this.right},`;
 	}
+}
+
+let nodeToConsole = (nodeColour) => {
+	return nodeColour === colours.Black ? chalk.bold.black : chalk.bold.red;
 }
 
 let leafNode = () => {
@@ -178,13 +202,27 @@ class RBTree {
 		return (this.root !== null) ? this.root.depth() : 0;
 	}
 
+	/*
+		@param The function used to display the elements
+	*/
+	display(logFunction){
+		if (this.root !== null){
+			this.root.display([], this.size, 1).map((line) => {
+				logFunction(line);
+			}); 
+		}  
+		else {
+			logFunction("");
+		}
+	}
+
 	/*        
 		@return An array of all values in the tree left to right
-	*/
+	*/	
 	/*
 	flatten() {
 		return this.root !== null ? this.root.flatten() : [];
-	}
+	}	
 	*/
 
 	/*        
