@@ -16,10 +16,17 @@ class RBNode {
 	//Default attributes
 	colour = colours.Red;
 	parent = null;
-	left = null;
-	right = null;
-	constructor(value) {
+
+	constructor(value, left, right) {
 		this.value = value;
+		//If value is not null both childeren are leaf nodes else this node is a leaf node so both childeren are null
+		if (value !== null) {
+			this.left = this.right = leafNode();
+			this.left.parent = this.right.parent = this;			
+		}
+		else{
+			this.left = this.right = null;			
+		}
 	}
 
 	depth(){
@@ -42,6 +49,12 @@ class RBNode {
 	}
 }
 
+let leafNode = () => {
+	let node = new RBNode(null);
+	node.colour = colours.Black;
+	return node;
+}
+
 /*
     Tree class for performing operations on the tree
 */
@@ -62,10 +75,10 @@ class RBTree {
 			this.size++;
 		} else {
 			let currentNode = this.root;
-			while (currentNode !== null) {
+			while (currentNode.value !== null) {
 				if (val > currentNode.value) {
 					//Take advantage of the fact that null is falsy
-					if (currentNode.right) {
+					if (currentNode.right.value) {
 						currentNode = currentNode.right;
 					} else {
 						this.size++;

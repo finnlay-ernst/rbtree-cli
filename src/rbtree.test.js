@@ -141,7 +141,7 @@ describe("Insert tests:", () => {
 	});
 });
 
-describe.only("Delete tests:", () => {
+describe("Delete tests:", () => {
 	describe("Binary tree properites:", () => {
 		beforeEach(() => {
 			//Setup for tests in this describe block
