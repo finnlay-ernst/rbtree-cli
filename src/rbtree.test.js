@@ -58,11 +58,11 @@ describe("Insert tests:", () => {
 			expect(testTree).toEqual(preInsertTree);
 		});
 		test("Elements < root go in left subtree", () => {
-			expect(testTree.root.left).not.toBeNull();
+			expect(testTree.root.left.value).not.toBeNull();
 			expect(testTree.root.left.value).toEqual(25);
 		});
 		test("Elements > root go in right subtree", () => {
-			expect(testTree.root.right).not.toBeNull();
+			expect(testTree.root.right.value).not.toBeNull();
 			expect(testTree.root.right.value).toEqual(75);
 		});
 	});
@@ -149,9 +149,9 @@ describe("Delete tests:", () => {
 			testTree.insert(75);
 		});
 		test("Existing element is deleted", () => {
-			expect(testTree.root.left).not.toBeNull();
+			expect(testTree.root.left.value).not.toBeNull();
 			testTree.delete(25);
-			expect(testTree.root.left).toBeNull();
+			expect(testTree.root.left.value).toBeNull();
 		});
 		test("Deleting only element results in null root", () => {
 			const singleNodeTree = new RBTree();
@@ -174,7 +174,7 @@ describe("Delete tests:", () => {
 		test("Deleting element does not leave subtrees detatched", () => {
 			testTree.insert(100);
 			testTree.delete(75);
-			expect(testTree.root.right).not.toBeNull();
+			expect(testTree.root.right.value).not.toBeNull();
 			expect(testTree.root.right.value).toEqual(100);
 		});
 		test("Deleting element with one subtree", () => {
@@ -194,7 +194,7 @@ describe("Delete tests:", () => {
 		});
 		test("Deleting element with no subtrees", () => {
 			testTree.delete(25);
-			expect(testTree.root.left).toBeNull();
+			expect(testTree.root.left.value).toBeNull();
 		});
 	});
 	describe("Red black tree properites:", () => {

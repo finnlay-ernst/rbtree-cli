@@ -110,7 +110,7 @@ class RBTree {
         @param Value to be deleted 
     */
 	delete(val) {
-		if (isNaN(val))	throw 'Input not a number';
+		if (isNaN(val))	throw 'Input not a number';	
 		let deletee = this.find(val);
 		let replacer;
 		if (deletee === null) return null;
@@ -125,7 +125,7 @@ class RBTree {
 		else {
 			//Both subtrees are non null
 		}
-		if (replacer.colour == black) this.deleteFixup(replacer);
+		if (replacer.colour === colours.Black) this.deleteFixup(replacer);
 	}
 
 	/*
@@ -135,6 +135,9 @@ class RBTree {
 	find(val) {
 		if (isNaN(val))	throw 'Input not a number';
 		let currentNode = this.root;
+		if (!currentNode){
+			return null;
+		}
 		while (currentNode.value !== null) {
 			if (val > currentNode.value) {
 				currentNode = currentNode.right;
@@ -218,8 +221,9 @@ class RBTree {
 		this.root.colour = colours.Black;
 	}
 
-	deleteFixup() {
+	deleteFixup(replacerNode) {
 		//TODO: implement the 4 cases for fixup
+		if (this.root.value === null) this.root = null;
 	}
 
 	relocate(target, replacer){
