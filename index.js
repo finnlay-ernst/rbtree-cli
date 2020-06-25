@@ -41,18 +41,8 @@ try {
 			default:
 				log("Error: Unrecognised command");
 		}
-
-		//TODO: Print out the tree		
-
-		let currentNode = tree.root;
-		let i = tree.size;
-		if (currentNode !== null){
-			while (currentNode.value !== null){
-				log('	'.repeat(i) + '' + nodeToConsole(currentNode.colour)(currentNode.value) + '\n');
-				currentNode = currentNode.left;
-				i--;
-			}	
-		}
+	
+		tree.display(log);
 		readline.prompt();
 	});
 } catch (error) {

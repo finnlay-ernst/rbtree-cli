@@ -1,4 +1,4 @@
-const { black } = require("chalk");
+const chalk = require("chalk");
 
 //Colours that a node can be
 const colours = {
@@ -57,13 +57,15 @@ class RBNode {
 		return currentArray;
 	}
 
-	display(displayString, width, level){
-		if (this.value === null) return;
-		displayString[level] += `	`.repeat(width/(2^level)); 
-		displayString[level] += `${nodeToConsole(this.colour)(this.value)}`; 
-		displayString[level] += `	`.repeat(width/(2^level)); 
-		this.left.display(displayString, width, level+1);
-		this.right.display(displayString, width, level+1);
+	display(displayString, width, level){	
+		const spacerSize = width/Math.pow(2, level);
+		const spacer = `  `.repeat(spacerSize);			
+		if (displayString[level] === undefined) displayString[level] = ``;
+		displayString[level] += spacer; 
+		displayString[level] += (this.value !== null) ? `${nodeToConsole(this.colour)(this.value)}` : ` `; 
+		displayString[level] += spacer; 
+		if (this.left) this.left.display(displayString, width, level+1);
+		if (this.right) this.right.display(displayString, width, level+1);
 
 		return displayString;
 	}
@@ -207,7 +209,7 @@ class RBTree {
 	*/
 	display(logFunction){
 		if (this.root !== null){
-			this.root.display([], this.size, 1).map((line) => {
+			this.root.display([], Math.pow(2, (this.depth() - 2)), 0).map((line) => {
 				logFunction(line);
 			}); 
 		}  
