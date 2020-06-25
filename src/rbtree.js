@@ -238,7 +238,42 @@ class RBTree {
 
 	deleteFixup(replacerNode) {
 		//TODO: implement the 4 cases for fixup
+		let currentNode = replacerNode;
 		if (this.root.value === null) this.root = null;
+		while (currentNode !== this.root && currentNode.colour === colours.Black){
+			let isLeft = currentNode.parent.left;
+			if (isLeft){
+				let sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
+				if (sibling.colour === colours.Red){
+					//Case 1: sibling is red
+					sibling.colour = colours.Black;
+					currentNode.parent.colour == colours.Red;
+					this.leftRotate(currentNode.parent);
+					sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
+				}
+				if (sibling.left.colour === colours.Black && sibling.right.colour === colours.Black){
+					//Case 2: both of siblings children are black
+					sibling.colour = colours.Red;
+					currentNode = currentNode.parent;
+				}
+				else {
+					if ((isLeft && sibling.right.colour === colours.Black) || (!isLeft && sibling.left.colour === colours.Black) ){
+						//Case 3: only siblings right child is black
+						(isLeft) ? sibling.left.colour : sibling.right.colour = colours.Black;
+						sibling.colour = colours.Red;
+						this.rightRotate(sibling);
+						sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
+					}
+					//Case 4: one or both of sibilings childeren are non black
+					sibling.colour = currentNode.parent.colour;
+					currentNode.parent.colour = colours.Black;
+					sibling.right.colour = colours.Black;
+					this.leftRotate(currentNode.parent);
+					currentNode = this.root;
+				}
+			}
+		}
+		currentNode.colour = colours.Black;
 	}
 
 	relocate(target, replacer){
