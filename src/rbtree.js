@@ -113,6 +113,7 @@ class RBTree {
 		if (isNaN(val))	throw 'Input not a number';	
 		let deletee = this.find(val);
 		let replacer;
+		let replacersReplacer;
 		if (deletee === null) return null;
 		if (deletee.left.value === null){
 			replacer = deletee.right;
@@ -124,8 +125,22 @@ class RBTree {
 		}
 		else {
 			//Both subtrees are non null
+			replacer = this.min(deletee.right);
+			replacersReplacer = replacer.right;
+			if (replacer.p !== deletee){
+				//Replace the replacer with its right child and ensure parent is updated
+				this.relocate(replacer, replacersReplacer);	
+				replacer.right = deletee.right;
+				replacer.right.parent = replacer;	
+			}
+			this.relocate(deletee, replacer);
+			replacer.left = deletee.left;
+			replacer.left.parent = replacer;
+			//Here a black node is potentially removed from the tree 			
+			replacer.colour = deletee.colour;
+
 		}
-		if (replacer.colour === colours.Black) this.deleteFixup(replacer);
+		if (deletee.colour === colours.Black || replacer.colour === colours.Black) this.deleteFixup(replacersReplacer || replacer);
 	}
 
 	/*
