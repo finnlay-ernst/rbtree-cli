@@ -1,3 +1,5 @@
+const { black } = require("chalk");
+
 //Colours that a node can be
 const colours = {
 	Red: "RED",
@@ -97,8 +99,21 @@ class RBTree {
     */
 	delete(val) {
 		if (isNaN(val))	throw 'Input not a number';
-		if (this.root !== null) this.root.delete(val);
-		//TODO: implement deletion
+		let deletee = this.find(val);
+		let replacer;
+		if (!deletee) return null;
+		if (!deletee.left){
+			replacer = (deletee.right) ? deletee.right : new RBNode(null);
+			this.relocate(deletee, deletee.right);
+		}
+		else if (!deletee.right){
+			replacer = (deletee.left) ? deletee.left : new RBNode(null);
+			this.relocate(deletee, deletee.left);
+		}
+		else {
+			//Both subtrees are non null
+		}
+		if (replacer.colour == black) this.deleteFixup(replacer);
 	}
 
 	/*
@@ -197,6 +212,19 @@ class RBTree {
 
 	deleteFixup() {
 		//TODO: implement the 4 cases for fixup
+	}
+
+	relocate(target, replacer){
+		if (!target.parent){
+			this.root = replacer; 
+		}
+		else if (target == target.parent.left){
+			target.parent.left = replacer;
+		}
+		else {
+			target.parent.right = replacer;
+		}
+		replacer.parent = target.parent;
 	}
 
 	leftRotate(rotate) {
