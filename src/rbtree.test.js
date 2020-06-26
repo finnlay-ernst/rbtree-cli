@@ -240,7 +240,7 @@ describe("Delete tests:", () => {
 			expect(testTree.root.right.value).toEqual(100);
 			expect(testTree.root.right.colour).toBe(colours.Black);
 		});
-		test("Replacer node's replacer is black & has red sibling", () => {});
+		test("Replacer node is black & has red sibling", () => {});
 		test("Replacer node's replacer is black & has black sibling with two black childeren", () => {});
 		test("Replacer node's replacer is black & has black sibling with red left child, black right child", () => {});
 		test("Replacer node's replacer is black & has black sibling with red right child", () => {});
