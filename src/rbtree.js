@@ -9,6 +9,12 @@ const colours = {
 //We don't ever want to change this object
 Object.freeze(colours);
 
+//Constants relating to displaying tree in terminal
+const spacerChar = `-`;
+const padderChar = ` `;
+const paddingSize = 4;
+
+
 /*
     Class represening the nodes the tree will be made up of.
 */
@@ -57,15 +63,25 @@ class RBNode {
 		return currentArray;
 	}
 
-	display(displayString, width, level){	
-		const spacerSize = width/Math.pow(2, level);
-		const spacer = `  `.repeat(spacerSize);			
+	display(displayString, width, level){				
+		//console.log(`Width: ${width}`);
+		let spacerSize = Math.floor((width - paddingSize)/2);	
+		if (spacerSize < 0) spacerSize = 0;
+		// console.log(`Spacer Size: ${spacerSize}`);
 		if (displayString[level] === undefined) displayString[level] = ``;
-		displayString[level] += spacer; 
-		displayString[level] += (this.value !== null) ? `${nodeToConsole(this.colour)(this.value)}` : ` `; 
-		displayString[level] += spacer; 
-		if (this.left) this.left.display(displayString, width, level+1);
-		if (this.right) this.right.display(displayString, width, level+1);
+		displayString[level] += spacerChar.repeat(spacerSize);
+		if (this.value !== null){
+			//When the value length is < padding size, try to put equal blank spaces on either side to pad out the value (and keep it centred)
+			const valueLength = `${this.value}`.length;
+			displayString[level] += padderChar.repeat(Math.floor((paddingSize - valueLength)/2)) + `${nodeToConsole(this.colour)(this.value)}` + padderChar.repeat(Math.ceil((paddingSize - valueLength)/2)); 
+		}
+		else{
+			displayString[level] += padderChar.repeat(paddingSize);
+		}
+		displayString[level] += spacerChar.repeat(spacerSize); 
+
+		if (this.left) this.left.display(displayString, width/2, level+1);
+		if (this.right) this.right.display(displayString, width/2, level+1);
 
 		return displayString;
 	}
@@ -208,10 +224,10 @@ class RBTree {
 		@param The function used to display the elements
 	*/
 	display(logFunction){
-		if (this.root !== null){
-			this.root.display([], Math.pow(2, (this.depth() - 2)), 0).map((line) => {
+		if (this.root !== null){			
+			this.root.display([], Math.pow(2, (this.depth())), 0).forEach((line, index) => {								
 				logFunction(line);
-			}); 
+			});
 		}  
 		else {
 			logFunction("");
