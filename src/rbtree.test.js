@@ -280,7 +280,7 @@ describe("Depth tests:", () => {
 	test("Depth of single node tree is 2", () => {
 		expect(testTree.depth()).toEqual(2);
 	});
-	test.only("Depth changes when nodes are removed (if it should)", () => {
+	test("Depth changes when nodes are removed (if it should)", () => {
 		testTree.insert(25);
 		testTree.insert(75);
 		testTree.insert(100);

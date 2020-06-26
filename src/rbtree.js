@@ -75,7 +75,7 @@ class RBNode {
 			const valueLength = `${this.value}`.length;
 			displayString[level] += padderChar.repeat(Math.floor((paddingSize - valueLength)/2)) + `${nodeToConsole(this.colour)(this.value)}` + padderChar.repeat(Math.ceil((paddingSize - valueLength)/2)); 
 		}
-		else{
+		else{			
 			displayString[level] += padderChar.repeat(paddingSize);
 		}
 		displayString[level] += spacerChar.repeat(spacerSize); 
@@ -160,22 +160,23 @@ class RBTree {
 		let deletee = this.find(val);
 		let replacer;
 		let replacersReplacer;
+		let fixupCandidate;
 		if (deletee === null) return null;
 		this.size--;
 		let needFixup = deletee.colour == colours.Black;
 		if (deletee.left.value === null){
-			replacer = deletee.right;
+			fixupCandidate = deletee.right;
 			this.relocate(deletee, deletee.right);
 		}
 		else if (deletee.right.value === null){
-			replacer = deletee.left;
+			fixupCandidate = deletee.left;
 			this.relocate(deletee, deletee.left);
 		}
 		else {			
 			//Both subtrees are non null
 			replacer = this.min(deletee.right);
 			needFixup = replacer.colour == colours.Black;
-			replacersReplacer = replacer.right;
+			fixupCandidate = replacersReplacer = replacer.right;
 			if (replacer.p !== deletee){
 				//Replace the replacer with its right child and ensure parent is updated
 				this.relocate(replacer, replacersReplacer);	
@@ -188,7 +189,7 @@ class RBTree {
 			//Here a black node is potentially removed from the tree 			
 			replacer.colour = deletee.colour;
 		}
-		if (needFixup) this.deleteFixup(replacersReplacer || replacer);
+		if (needFixup) this.deleteFixup(fixupCandidate);
 	}
 
 	/*
@@ -304,39 +305,48 @@ class RBTree {
 			this.root = null;
 			return;
 		}
-		// while (currentNode !== this.root && currentNode.colour === colours.Black){
-		// 	console.log(`Entering fixup loop on node:`, currentNode.print());
-		// 	let isLeft = currentNode.parent.left;					
-		// 	let sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
-		// 	if (sibling.colour === colours.Red){
-		// 		//Case 1: sibling is red
-		// 		sibling.colour = colours.Black;
-		// 		currentNode.parent.colour == colours.Red;
-		// 		this.leftRotate(currentNode.parent);
-		// 		sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
-		// 	}
-		// 	if (sibling.left.colour === colours.Black && sibling.right.colour === colours.Black){
-		// 		//Case 2: both of siblings children are black
-		// 		sibling.colour = colours.Red;
-		// 		currentNode = currentNode.parent;
-		// 	}
-		// 	else {
-		// 		if ((isLeft && sibling.right.colour === colours.Black) || (!isLeft && sibling.left.colour === colours.Black) ){
-		// 			//Case 3: only siblings right child is black
-		// 			(isLeft) ? sibling.left.colour : sibling.right.colour = colours.Black;
-		// 			sibling.colour = colours.Red;
-		// 			this.rightRotate(sibling);
-		// 			sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
-		// 		}
-		// 		//Case 4: one or both of sibilings childeren are non black
-		// 		sibling.colour = currentNode.parent.colour;
-		// 		currentNode.parent.colour = colours.Black;
-		// 		sibling.right.colour = colours.Black;
-		// 		this.leftRotate(currentNode.parent);
-		// 		currentNode = this.root;
-		// 	}			
-		// }
-		// currentNode.colour = colours.Black;
+		while (currentNode !== this.root && currentNode.colour === colours.Black){
+			let isLeft = currentNode.parent.left == currentNode;					
+			let sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
+			if (sibling.colour === colours.Red){
+				//Case 1: sibling is red
+				sibling.colour = colours.Black;
+				currentNode.parent.colour == colours.Red;
+				(isLeft) ? this.leftRotate(currentNode.parent) : this.rightRotate(currentNode.parent);
+				sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
+			}
+			if (sibling.value !== null){
+				if (sibling.left.colour === colours.Black && sibling.right.colour === colours.Black){
+					//Case 2: both of siblings children are black
+					sibling.colour = colours.Red;
+					currentNode = currentNode.parent;
+				}
+				else {
+					if ((isLeft && sibling.right.colour === colours.Black) || (!isLeft && sibling.left.colour === colours.Black) ){
+						//Case 3: only siblings right child is black
+						(isLeft) ? sibling.left.colour = colours.Black : sibling.right.colour = colours.Black;
+						sibling.colour = colours.Red;
+						(isLeft) ? this.rightRotate(sibling) : this.leftRotate(sibling);
+						sibling = (isLeft) ? currentNode.parent.right : currentNode.parent.left;
+					}
+					//Case 4: one or both of sibilings childeren are non black
+					sibling.colour = currentNode.parent.colour;
+					currentNode.parent.colour = colours.Black;
+					(isLeft) ? sibling.right.colour = colours.Black : sibling.left.colour = colours.Black;
+					(isLeft) ? this.leftRotate(currentNode.parent) : this.rightRotate(currentNode.parent);
+					currentNode = this.root;
+				}
+			}
+			else {
+				//If the sibling is a null leaf the Case 4 is the only option
+				sibling.colour = currentNode.parent.colour;
+				currentNode.parent.colour = colours.Black;				
+				(isLeft) ? this.leftRotate(currentNode.parent) : this.rightRotate(currentNode.parent);
+				currentNode = this.root;
+			}
+						
+		}
+		currentNode.colour = colours.Black;
 	}
 
 	relocate(target, replacer){
