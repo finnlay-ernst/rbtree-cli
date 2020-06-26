@@ -22,13 +22,12 @@ Languages: JavaScript
     - [x] Insert maintains red black tree properties 
     - [x] Delete maintains red black tree properties
 - [ ]  Implement functions
-    - [ ] Insert
+    - [x] Insert
     - [ ] Delete
-    - [ ] Find
-    - [ ] Size
-    - [ ] Depth
-    - [ ] Flatten
-    - [ ] Collapse
+    - [x] Find
+    - [x] Size
+    - [x] Depth    
+    - [x] Collapse
 
 ## Testing
 
@@ -86,6 +85,5 @@ Assign replacer to be the minimum node in deletee's right subtree. TBC
 - Delete
 - Find
 - Size (how many nodes?)
-- Depth (how many levels?)
-- Flatten (left to right)
+- Depth (how many levels? (includes leaves))
 - Collapse (root first)

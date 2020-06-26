@@ -10,7 +10,7 @@ const colours = {
 Object.freeze(colours);
 
 //Constants relating to displaying tree in terminal
-const spacerChar = `-`;
+const spacerChar = ` `;
 const padderChar = ` `;
 const paddingSize = 4;
 

@@ -372,38 +372,3 @@ describe("Collapse tests:", () => {
 		expect(testTree.collapse()).toEqual([50, 25, 15, 10, 35, 75, 100]);
 	});
 });
-
-/*
-describe("Flatten tests:", () => {
-	test("Array length is always equal to tree size", () => {
-		expect(testTree.flatten().length).toEqual(1);
-		testTree.insert(25);
-		expect(testTree.flatten().length).toEqual(2);
-		testTree.insert(75);
-		expect(testTree.flatten().length).toEqual(3);
-		testTree.insert(100);
-		expect(testTree.flatten().length).toEqual(4);
-		testTree.insert(35);
-		expect(testTree.flatten().length).toEqual(5);
-		testTree.insert(15);
-		expect(testTree.flatten().length).toEqual(6);
-		testTree.insert(10);
-		expect(testTree.flatten().length).toEqual(7);
-	});
-	test("Flattens appropriately", () => {
-		expect(testTree.flatten()).toEqual([50]);
-		testTree.insert(25);
-		expect(testTree.flatten()).toEqual([25, 50]);
-		testTree.insert(75);
-		expect(testTree.flatten()).toEqual([25, 50, 75]);
-		testTree.insert(100);
-		expect(testTree.flatten()).toEqual([25, 50, 75, 100]);
-		testTree.insert(35);
-		expect(testTree.flatten()).toEqual([25, 35, 50, 75, 100]);
-		testTree.insert(15);
-		expect(testTree.flatten()).toEqual([15, 25, 35, 50, 75, 100]);
-		testTree.insert(10);
-		expect(testTree.flatten()).toEqual([10, 15, 25, 35, 50, 75, 100]);
-	});
-});
-*/
