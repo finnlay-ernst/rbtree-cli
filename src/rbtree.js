@@ -287,12 +287,12 @@ class RBTree {
 				) {
 					//Case 2: uncle is black and triangle formed
 					currentNode = currentNode.parent;
-					this.leftRotate(currentNode);
+					(parentIsLeft) ? this.leftRotate(currentNode) : this.rightRotate(currentNode);
 				}
 				//Case 3: uncle is black and line formed
 				currentNode.parent.colour = colours.Black;
 				currentNode.parent.parent.colour = colours.Red;
-				this.rightRotate(currentNode.parent.parent);
+				(parentIsLeft) ? this.rightRotate(currentNode.parent.parent) : this.leftRotate(currentNode.parent.parent);
 			}
 		}
 		this.root.colour = colours.Black;
