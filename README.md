@@ -1,5 +1,5 @@
 # rbtree-cli
-![Application Demo](demo.png)  
+![Application Demo](./Demo.png)  
 Description: A simple red black tree that the user can interact with via the command line  
 Languages: JavaScript
 
