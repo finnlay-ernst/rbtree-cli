@@ -1,7 +1,6 @@
 # rbtree-cli
 ![Application Demo](./Demo.png)  
-Description: A simple red black tree that the user can interact with via the command line  
-Languages: JavaScript
+A red black tree implementation with simple commandline interaction supported 
 
 ## Development Tasks
 

@@ -13,9 +13,9 @@ clear();
 let tree = new RBTree();
 const log = console.log;
 
-log(`Use ${chalk.blueBright("insert _")} or ${chalk.blueBright("delete _")} to modify tree\n
-	Use ${chalk.blueBright("print")} to print out tree as an array\n
-	Input should be a number\n`);
+log(`Use ${chalk.blueBright("insert _")} or ${chalk.blueBright("delete _")} to modify tree
+Use ${chalk.blueBright("print")} to print out tree as an array
+Input should be a number`);
 
 readline.prompt();
 readline.on("line", (input) => {
@@ -30,10 +30,12 @@ readline.on("line", (input) => {
 		switch (inputs[0]) {
 			case "insert": {
 				tree.insert(parseInt(inputs[1]));
+				tree.display(log);
 				break;
 			}
 			case "delete": {
 				tree.delete(parseInt(inputs[1]));
+				tree.display(log);
 				break;
 			}
 			case "print": {
@@ -44,7 +46,6 @@ readline.on("line", (input) => {
 				log("Error: Unrecognised command");
 		}
 	
-		tree.display(log);
 	}
 	readline.prompt();
 });
