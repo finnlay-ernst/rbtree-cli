@@ -19,11 +19,11 @@ const paddingSize = 4;
     Class represening the nodes the tree will be made up of.
 */
 class RBNode {
-	//Default attributes
+	//Default attributes for an inserted node
 	colour = colours.Red;
 	parent = null;
 
-	constructor(value, left, right) {
+	constructor(value) {
 		this.value = value;
 		//If value is not null both childeren are leaf nodes else this node is a leaf node so both childeren are null
 		if (value !== null) {
@@ -35,6 +35,9 @@ class RBNode {
 		}
 	}
 
+	/*
+		Returns: The depth of the tree with this node as root (leaves included in depth)
+	*/	
 	depth(){
 		let leftDepth = 0;
 		let rightDepth = 0;
@@ -47,6 +50,10 @@ class RBNode {
 		return 1 + Math.max(leftDepth, rightDepth);
 	}
 
+	/*
+		Parameters: An array with the collapsed tree so far
+		Returns: Array with root first collapsed representation of the tree (values only)
+	*/
 	collapse(currentArray) {
 		if (this.value === null) return [];
 		currentArray.push(this.value);
@@ -55,6 +62,7 @@ class RBNode {
 		return currentArray;
 	}
 
+	/*
 	flatten(currentArray) {
 		if (this.value === null) return [];
 		currentArray.push({value: this.value, colour: this.colour});
@@ -62,12 +70,18 @@ class RBNode {
 		if (this.right.value !== null) currentArray.concat(this.right.flatten(currentArray));
 		return currentArray;
 	}
-
-	display(displayString, width, level){				
-		//console.log(`Width: ${width}`);
+	*/
+	
+	/*
+		Parameters: displayString - Current array with each element being a new line to be displayed on the console
+					width - Number of character spaces to be filled
+					level - Which level of the tree (used to index array)
+		Return: An array with each element being a new line to be displayed on the console
+	*/
+	display(displayString, width, level){						
 		let spacerSize = Math.floor((width - paddingSize)/2);	
 		if (spacerSize < 0) spacerSize = 0;
-		// console.log(`Spacer Size: ${spacerSize}`);
+		
 		if (displayString[level] === undefined) displayString[level] = ``;
 		displayString[level] += spacerChar.repeat(spacerSize);
 		if (this.value !== null){
@@ -86,15 +100,25 @@ class RBNode {
 		return displayString;
 	}
 
+	/*
+		Returns: String representation of a node
+	*/
 	print() {
-		return `Value: ${this.value}, Colour: ${this.colour}, Parent: ${this.parent.value}, Left: ${this.left}, Right: ${this.right},`;
+		return `Value: ${this.value}, Colour: ${this.colour}, Parent: ${this.parent.value}, Left: ${this.left}, Right: ${this.right}`;
 	}
 }
 
+/*
+	Parameters: A colour, either red or black
+	Returns: The appropriate function from the chalk module for that colour
+*/
 let nodeToConsole = (nodeColour) => {
 	return nodeColour === colours.Black ? chalk.bold.black : chalk.bold.red;
 }
 
+/*
+	Returns: A node with value = null and colour = black (a leaf node)
+*/
 let leafNode = () => {
 	let node = new RBNode(null);
 	node.colour = colours.Black;
@@ -111,7 +135,7 @@ class RBTree {
 	}
 
 	/*
-		@param Value to be inserted 
+		Parameters: Value to be inserted 
     */
 	insert(val) {
 		if (isNaN(val))	throw 'Input not a number';
@@ -153,7 +177,7 @@ class RBTree {
 	}
 
 	/*
-        @param Value to be deleted 
+        Parameters: Value to be deleted 
     */
 	delete(val) {
 		if (isNaN(val))	throw 'Input not a number';	
@@ -193,8 +217,8 @@ class RBTree {
 	}
 
 	/*
-        @param Value to be found 
-        @return The object representing that node or null if not found
+        Parameters: Value to be found 
+        Returns: The object representing that node or null if not found
     */
 	find(val) {
 		if (isNaN(val))	throw 'Input not a number';
@@ -215,14 +239,14 @@ class RBTree {
 	}
 
 	/*
-		@return The number of levels in the tree
+		Returns: The number of levels in the tree (including leaves)
 	*/
 	depth() {
 		return (this.root !== null) ? this.root.depth() : 0;
 	}
 
 	/*
-		@param The function used to display the elements
+		Parameters: The function used to display the elements 
 	*/
 	display(logFunction){
 		if (this.root !== null){			
@@ -245,14 +269,14 @@ class RBTree {
 	*/
 
 	/*        
-		@return An array of all nodes in the tree starting from root (so that reinserting would not require rotation, good for serilization)
+		Returns: An array of all nodes in the tree starting from root (so that reinserting would not require rotation, good for serilization)
 	*/
 	collapse() {
 		return this.root !== null ? this.root.collapse([]) : [];
 	}
 
 	/*
-		@return The minimum node in this subtree
+		Returns: The minimum node in this subtree
 	*/
 	min(startingNode) {
 		let currentNode = startingNode;
@@ -263,6 +287,9 @@ class RBTree {
 		return null;
 	}
 
+	/*
+		Parameters: The node to begin the fixup routine on
+	*/
 	insertFixup(insertedNode) {
 		//Start off with the node fixup was called with
 		let currentNode = insertedNode;
@@ -299,6 +326,9 @@ class RBTree {
 		this.root.colour = colours.Black;
 	}
 
+	/*
+		Parameters: The node to begin the fixup routine on
+	*/
 	deleteFixup(replacerNode) {
 		let currentNode = replacerNode;
 		if (this.root.value === null) {
@@ -349,6 +379,10 @@ class RBTree {
 		currentNode.colour = colours.Black;
 	}
 
+	/*
+		Parameters: target - The node to be replaced
+					replacer - The node to replace the target		
+	*/
 	relocate(target, replacer){
 		if (!target.parent){
 			this.root = replacer; 
@@ -362,6 +396,9 @@ class RBTree {
 		replacer.parent = target.parent;
 	}
 
+	/*
+		Parameters: The node to rotate
+	*/	
 	leftRotate(rotate) {
 		let insert = rotate.right;
 		rotate.right = insert.left;
@@ -381,6 +418,9 @@ class RBTree {
 		rotate.parent = insert;
 	}
 
+	/*
+		Parameters: The node to rotate
+	*/	
 	rightRotate(rotate) {
 		let insert = rotate.left;
 		rotate.left = insert.right;
